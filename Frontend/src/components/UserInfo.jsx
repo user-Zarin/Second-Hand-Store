@@ -1,61 +1,59 @@
-import { React, useContext, useState } from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import DoneIcon from "@material-ui/icons/Done";
-import { UserContext } from "../context/User";
-const UserInfo = () => {
-  const [change, setChange] = useState(false);
-  const { input, setInput } = useContext(UserContext);
-  const handleEditToggle = () => {
-    setChange(!change);
+import React from "react";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faIndianRupeeSign,
+  faAngleLeft,
+  faAngleRight,
+} from "@fortawesome/free-solid-svg-icons";
+const Productslide = ({ images }) => {
+  const [currentIndex, setcurrentIndex] = useState(0);
+  const handlePrevious = () => {
+    setcurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    setChange(false);
+  const handleNext = () => {
+    setcurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
   };
   return (
-    <div className="m-5 mt-8 text-gray-800 space-y-4">
-      {["name", "email", "contact", "address", "city", "pincode"].map(
-        (field) => (
-          <div key={field}>
-            <h2 className="text-lg font-semibold capitalize">{field}</h2>
-            {change ? (
-              <input
-                type="text"
-                name={field}
-                value={input[field]}
-                onChange={handleInputChange}
-                className="border p-2 rounded w-full"
-              />
-            ) : (
-              <h3 className="text-gray-600">{input[field]}</h3>
-            )}
-          </div>
-        )
-      )}
-      {/* Toggle Edit/Save */}
-      <div className="flex justify-end mt-4">
-        {change ? (
-          <DoneIcon
-            className="cursor-pointer text-green-500"
-            onClick={handleSave}
+    <div className="relative w-full h-full overflow-hidden pt-20 ">
+      <div className="w-3/4 h-1/2 flex justify-center pl-12">
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Slide ${index}`}
+            className={`w-full h-full object-cover transition-opacity duration-500 ${
+              index === currentIndex ? "opacity-100 shadow-lg" : "opacity-0"
+            }`}
+            style={{
+              position: index === currentIndex ? "absolute" : "static",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundSize: "100%",
+            }}
           />
-        ) : (
-          <EditIcon
-            className="cursor-pointer text-blue-500"
-            onClick={handleEditToggle}
-          />
-        )}
+        ))}
       </div>
+      <button
+        onClick={handlePrevious}
+        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2"
+      >
+        <FontAwesomeIcon icon={faAngleLeft} />
+      </button>
+      <button
+        onClick={handleNext}
+        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2"
+      >
+        <FontAwesomeIcon icon={faAngleRight} />
+      </button>
     </div>
   );
 };
 
-export default UserInfo;
+export default Productslide;
