@@ -39,7 +39,7 @@ const DashBoard = () => {
                   isActive && "bg-yellow-100 border-r-4 border-yellow-600"
                 }`
               }
-              to={"/dashboard/Admin"}
+              to={"/dashboard/users"}
             >
               <p className="max-sm:hidden font-bold ">
                 <GroupIcon /> User

@@ -14,7 +14,8 @@ import SignUP from "./pages/SignUP.jsx";
 import Sell from "./pages/Sell.jsx";
 import Product from "./pages/Product.jsx";
 import Admin from "./pages/Admin.jsx";
-
+import Users from "./pages/Users.jsx";
+import AddCategory from "./components/AddCategory.jsx";
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,8 +24,10 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/signup" element={<SignUP />} />
+        <Route path="/signup/:id" element={<SignUP />} />
+        <Route path="/signup" element={<SignUP/>}/>
         <Route path="/login" element={<Login />} />
+        <Route path="/login/:id" element={<Login />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/category/:id" element={<ProductPage />} />
         <Route path="/profile" element={<Profile />} />

@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
-
+  const { id } = useParams();
+  
   const onSubmit = (data) => {
     console.log(data);
     alert("Sign Up Successful");
   };
-
+    
+  const buttonClass = 'bg-purple-600 text-center w-11/12 h-14 rounded-xl mt-5 text-lg font-serif font-medium text-slate-100 ml-7 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-purple-800 duration-500';
   return (
     <div className='flex h-screen w-screen items-center justify-center bg-purple-200'>
       <div className="absolute inset-0 lg:rounded-3xl lg:h-5/6 lg:w-5/6 lg:mx-28 lg:my-10 flex justify-center flex-col md:flex-row bg-white">
@@ -19,7 +21,7 @@ const SignUp = () => {
           <div className='ml-7'>
             <b className='text-4xl'>Create an Account</b>
           </div>
-
+          
           <form onSubmit={handleSubmit(onSubmit)} className='px-8 lg:px-0'>
             <input
               type="text"
@@ -31,7 +33,7 @@ const SignUp = () => {
               })}
             />
             {errors.name && <div className='text-left ml-2 text-red-500 text-sm'>{errors.name.message}</div>}
-
+               
             <input
               type="email"
               placeholder='Email address'
@@ -42,7 +44,7 @@ const SignUp = () => {
               })}
             />
             {errors.Email && <div className='text-left ml-2 text-red-500 text-sm'>{errors.Email.message}</div>}
-
+             
             <input
               type="password"
               placeholder='Create Password'
@@ -54,19 +56,20 @@ const SignUp = () => {
               })}
             />
             {errors.password && <div className='text-left ml-2 text-red-500 text-sm'>{errors.password.message}</div>}
-
-            <p className='text-right text-xs'>Forgot password?</p>
-            <Link to={"/home"}>
-              <button
-                className='bg-purple-600 text-center w-full lg:w-11/12 h-14 rounded-xl mt-5 text-lg font-serif font-medium text-slate-100 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-purple-800 duration-500'
-                disabled={!isValid}
-              >
-                Sign Up
+                  
+            <Link to={id === 'admin' ? "/admin" : "/home"}>
+              <button className={buttonClass} disabled={!isValid}>
+                Sign up
               </button>
             </Link>
           </form>
-
-          <p className='text-slate-500 text-sm pt-3'>Already have an account? <Link to={"/login"} className='text-blue-500 underline'>Sign in</Link></p>
+                         
+          <p className='text-slate-500 text-sm pt-3'>Already have an account? <Link to={"/login"} className='text-blue-500 underline'>Login </Link></p>
+          {id === 'admin' ? (
+            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup"} className='text-blue-500 underline'>Sign up </Link> as User</p>
+          ) : (
+            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup/admin"} className='text-blue-500 underline'>Sign up </Link> as Admin</p>
+          )}
         </div>
       </div>
     </div>

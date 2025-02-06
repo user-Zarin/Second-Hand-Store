@@ -1,7 +1,9 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React,{useState} from "react";
+import { Link,useNavigate } from "react-router-dom";
 import CategoriesApi from "../componentApi/CategoriesApi.js";
 
+import AddCategory from "../components/AddCategory.jsx";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 const Admin = () => {
   const navigate = useNavigate();
   const items = 2;
@@ -13,8 +15,10 @@ const Admin = () => {
     "bg-orange-300",
     "bg-red-500",
   ];
+  const [showPopup,setShowPopup]=useState(false);
   return (
-    <div className=" bg-slate-300 ">
+    <div className=" bg-slate-300 flex flex-row ">
+      
       <div className="flex flex-wrap md:justify-around p-5">
         {CategoriesApi.map((item) => (
           <div
@@ -29,12 +33,15 @@ const Admin = () => {
             <h1 className="text-2xl">Items: {items}</h1>
           </div>
         ))}
-        <div
+        
+        <button 
           className="flex justify-center w-72 h-36 bg-pink-500 shadow-lg m-5 rounded-md transition hover:scale-105
-         text-white items-center gap-8 text-2xl font-bold"
+         text-white items-center gap-8 text-2xl font-bold" onClick={()=> setShowPopup(true)}
         >
           <span className=" text-9xl pb-7">+</span> Add Category
-        </div>
+        </button>
+      {showPopup && <AddCategory onClose={()=>setShowPopup(false)}/> }
+        
       </div>
     </div>
   );
