@@ -7,10 +7,8 @@ import Profile from "./pages/Profile.jsx";
 import Payment from "./pages/Payment.jsx";
 import History from "./pages/History.jsx";
 import AddToCart from "./pages/AddToCart.jsx";
-
 import DashBoard from "./pages/Dashboard.jsx";
 import UserProgress from "./pages/Progress.jsx";
-
 import Login from "./pages/Login.jsx";
 import SignUP from "./pages/SignUP.jsx";
 import Sell from "./pages/Sell.jsx";
@@ -29,13 +27,15 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/category/:id" element={<ProductPage />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/Payment" element={<Payment />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/history" element={<History />} />
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/product" element={<Product />} />
+        
+        {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashBoard />}>
-          <Route path="Admin" element={<Admin />} />
+          <Route path="Admin" element={<Admin />} /> 
           <Route path="progress" element={<UserProgress />} />
         </Route>
       </Routes>
