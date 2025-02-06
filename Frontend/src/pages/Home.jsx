@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "../components/Slider";
+import Hero from "../components/Hero/Hero.jsx";
 import Categories from "../components/Categories";
 import Policy from "../components/Policy";
 import Header from "../components/Header";
@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Slider />
+      <Hero />
       <Categories />
       <Policy />
       <Footer />

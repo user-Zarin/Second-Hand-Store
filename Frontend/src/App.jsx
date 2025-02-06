@@ -7,28 +7,41 @@ import Profile from "./pages/Profile.jsx";
 import Payment from "./pages/Payment.jsx";
 import History from "./pages/History.jsx";
 import AddToCart from "./pages/AddToCart.jsx";
+
+import DashBoard from "./pages/Dashboard.jsx";
+import UserProgress from "./pages/Progress.jsx";
+
 import Login from "./pages/Login.jsx";
 import SignUP from "./pages/SignUP.jsx";
 import Sell from "./pages/Sell.jsx";
 import Product from "./pages/Product.jsx";
 import Admin from "./pages/Admin.jsx";
+import Users from "./pages/Users.jsx";
+import AddCategory from "./components/AddCategory.jsx";
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/home" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/signup/:id" element={<SignUP />} />
         <Route path="/signup" element={<SignUP/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/sell" element={<Sell/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/:id" element={<Login />} />
+        <Route path="/sell" element={<Sell />} />
         <Route path="/category/:id" element={<ProductPage />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/history" element={<History />} />
         <Route path="/addtocart" element={<AddToCart />} />
-        <Route path="/product" element={<Product/>}/>
+        <Route path="/product" element={<Product />} />
+        <Route path="/dashboard" element={<DashBoard />}>
+        <Route path="progress" element={<UserProgress />} />
+        <Route path="users" element={<Users/>}/></Route>
+        <Route path="/addcategory" element={<AddCategory/>}/>
+       
       </Routes>
     </BrowserRouter>
   );
