@@ -1,16 +1,18 @@
-import React, { useContext, useState } from "react";
-import UserInfo from "../components/UserInfo";
-import Posts from "../components/Posts";
+import React, { useContext } from "react";
+import UserInfo from "../components/UserInfo.jsx";
+import Posts from "../components/Posts.jsx";
 import { UserContext } from "../context/User";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 import { NavLink } from "react-router-dom";
+
 function Profile() {
-  const { input, setInput } = useContext(UserContext);
+  const { input } = useContext(UserContext);
+
   return (
     <>
       <Header />
-      <div className="min-h-screen  bg-gray-100 flex justify-center items-center">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
         <div className="bg-white mb-[10%] shadow-lg rounded-lg overflow-hidden w-full max-w-4xl m-10">
           {/* Profile Header */}
           <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-40" />
@@ -23,17 +25,19 @@ function Profile() {
               />
             </div>
             <div className="text-center mt-6">
-              <h1 className="text-xl font-bold text-gray-800">{input.name}</h1>
-              <p className="text-gray-600">{input.email}</p>
+              <h1 className="text-xl font-bold text-gray-800">{input?.name || "User Name"}</h1>
+              <p className="text-gray-600">{input?.email || "user@example.com"}</p>
             </div>
             {/* Editable Section */}
             <UserInfo />
             <Posts />
-            <NavLink to="/history">
-              <button className="text-red-700 font-bold border-2 border-red-500 rounded bg-white p-2 m-3 hover:text-red-500">
-                History
-              </button>
-            </NavLink>
+            <div className="text-center">
+              <NavLink to="/history">
+                <button className="text-white font-bold bg-red-500 hover:bg-red-700 border-2 border-red-500 rounded-lg p-2 px-4 m-3 transition duration-200">
+                  View History
+                </button>
+              </NavLink>
+            </div>
           </div>
         </div>
       </div>
