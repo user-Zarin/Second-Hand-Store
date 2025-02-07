@@ -11,7 +11,7 @@ import logo from "../assets/logo.png";
 const Footer = () => {
   const socialStyle = "m-3  rounded-full cursor-pointer p-2 text-black";
   return (
-    <div className="flex w-full text-black bg-yellow-400 border-transparent items-center justify-around p-2 mobile:flex-col mobile:items-start  px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] font-semibold font-sans">
+    <div className="flex w-full text-black bg-blue-950 border-transparent items-center justify-around p-2 mobile:flex-col mobile:items-start  px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] font-semibold font-sans">
       <div></div>
       <div className="flex-1 flex flex-col flex-wrap p-2">
         <img src={logo} alt="" className="w-[180px]" />

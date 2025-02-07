@@ -18,9 +18,11 @@ const Product = () => {
   ]
 
   return (
+    <>
+    <Header />
     <div className=' inset-0  flex  flex-col justify-center items-center   bg-white'>
 
-      <Header />
+     
       <div className='flex flex-row max-md:flex-col w-full gap-6 '>
         <Productslide images={images} />
         <div className=' p-6  w-full h-full  '>
@@ -45,6 +47,7 @@ const Product = () => {
 
       <Footer />
     </div>
+    </>
   )
 }
 

@@ -29,7 +29,7 @@ const Users = () => {
     ];
 
     const image = 'https://thumbs.dreamstime.com/b/d-avatar-illustration-smiling-happy-girl-cartoon-close-up-portrait-standing-isolated-transparent-png-background-generative-272798686.jpg';
-
+    
     return (
         <div className="min-h-screen w-full pt-14 container mx-auto bg-gray-100">
             <h1 className="text-4xl font-bold mb-8 text-center text-gray-700">User Management</h1>
@@ -47,9 +47,9 @@ const Users = () => {
                 <tbody>
                     {users.map(user => (
                         <tr key={user.id} className="border-b last:border-none hover:bg-gray-100 transition duration-300 ease-in-out">
-                            <td className="p-4 "><img src={image} alt="" className="rounded-full w-14 h-14" /></td>
-                            <td className="p-4">{user.name}</td>
-                            <td className="p-4">{user.email}</td>
+                            <td className=" p-4 flex justify-center"><img src={image} alt="" className="rounded-full w-14 h-14" /></td>
+                            <td className="p-4 text-center">{user.name}</td>
+                            <td className="p-4 text-center">{user.email}</td>
                             <td className="p-4">
                                 <input 
                                     type="range" 
@@ -68,8 +68,8 @@ const Users = () => {
                                     className="w-full"
                                 />
                             </td>
-                            <td className="p-4">
-                                <button className="bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full px-4 py-2 hover:shadow-lg transition duration-300 ease-in-out">
+                            <td className="p-4 text-center">
+                                <button className=" text-black rounded-full px-4 py-2 hover:shadow-lg transition duration-300 ease-in-out ">
                                     <Delete />
                                 </button>
                             </td>
