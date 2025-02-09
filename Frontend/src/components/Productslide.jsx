@@ -19,14 +19,14 @@ const Productslide = ({ images }) => {
     );
   };
   return (
-    <div className="relative w-full h-full overflow-hidden pt-20 ">
+    <div className="relative ml-[10vw] h-[50vh] w-[30vw] overflow-hidden pt-20 ">
       <div className="w-3/4 h-1/2 flex justify-center pl-12">
         {images.map((image, index) => (
           <img
             key={index}
             src={image}
             alt={`Slide ${index}`}
-            className={`w-full h-full object-cover transition-opacity duration-500 ${
+            className={` object-cover transition-opacity duration-500 ${
               index === currentIndex ? "opacity-100 shadow-lg" : "opacity-0"
             }`}
             style={{
