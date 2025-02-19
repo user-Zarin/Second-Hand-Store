@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef ,useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-
+import { faCamera,faCirclePlus} from '@fortawesome/free-solid-svg-icons';
 const AddCategory = ({ onClose }) => {
     const popupRef = useRef();
 
@@ -16,7 +16,15 @@ const AddCategory = ({ onClose }) => {
             onClose();
         }
     };
-
+     const[file,setFile]=useState();
+     const inputref=useRef(null);
+      const handleClick1=()=>{
+       inputref.current.click();
+      }
+      const handleChange=(e)=>{
+        const file=e.target.files[0];
+        setFile(file);
+      }
     return (
         <div
             ref={popupRef}
@@ -33,14 +41,17 @@ const AddCategory = ({ onClose }) => {
                 <label className='mb-2'>Title*</label>
                 <input
                     type="text"
-                    className='bg-[#eaecee] rounded-lg h-14 w-[90%] mb-7'
+                    className='bg-[#eaecee] rounded-lg h-14 w-[90%] '
                     
                 />
                 <p className='text-slate-400 text-sm font-normal'>
                     Mention the title of the category
                 </p>
+                <button onClick={handleClick1} className='border-2 border-dashed border-black w-24 h-24  rounded-lg mt-5 '><FontAwesomeIcon icon={faCamera} /><p>Add Icon</p></button>
+                        {file? <img src={URL.createObjectURL(file)} className='w-40  h-36'/>:null}
+                        <input type="file"ref={inputref} className='mb-7 hidden ' onChange={handleChange} />
             </div>
-            <Link to={"/admin"}>
+            <Link to={"/dashboard/admin"}>
                 <button
                     className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white w-40 h-11 mt-8 mb-9 rounded-lg font-semibold cursor-pointer'
                     onClick={handleClick}

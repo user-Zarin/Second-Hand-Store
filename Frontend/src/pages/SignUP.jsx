@@ -1,17 +1,46 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useParams, useNavigate, data } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
   const { id } = useParams();
-  
-  const onSubmit = (data) => {
-    console.log(data);
-    alert("Sign Up Successful");
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const [err, setErr] = useState(null);
+
+  const handleChange = (e) => {
+    setInputValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
-    
+  const handleSub = async () => {
+    try {
+      const res=await axios.post("http://localhost:3000/auth/signup", inputValues,{
+        withCredentials : true
+      })
+     .then(res=>{
+      if(res.status===201){
+       
+        alert("Registration Successful");
+        navigate('/home');
+      }
+      else{
+        alert("error")
+      }
+     })
+       
+      
+    } catch (err) {
+      setErr(err.response?.data || "An error occurred");
+    }
+  };
+
   const buttonClass = 'bg-purple-600 text-center w-11/12 h-14 rounded-xl mt-5 text-lg font-serif font-medium text-slate-100 ml-7 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-purple-800 duration-500';
+
   return (
     <div className='flex h-screen w-screen items-center justify-center bg-purple-200'>
       <div className="absolute inset-0 lg:rounded-3xl lg:h-5/6 lg:w-5/6 lg:mx-28 lg:my-10 flex justify-center flex-col md:flex-row bg-white">
@@ -21,10 +50,12 @@ const SignUp = () => {
           <div className='ml-7'>
             <b className='text-4xl'>Create an Account</b>
           </div>
-          
-          <form onSubmit={handleSubmit(onSubmit)} className='px-8 lg:px-0'>
+
+          <form onSubmit={handleSubmit(handleSub)} className='px-8 lg:px-0'>
             <input
+              onChange={handleChange}
               type="text"
+              name='name'
               placeholder='Enter your name'
               className='w-full lg:w-11/12 h-10 bg-slate-100 my-5 rounded-xl pl-5 mt-6'
               {...register("name", {
@@ -33,20 +64,24 @@ const SignUp = () => {
               })}
             />
             {errors.name && <div className='text-left ml-2 text-red-500 text-sm'>{errors.name.message}</div>}
-               
+
             <input
               type="email"
+              name='email'
+              onChange={handleChange}
               placeholder='Email address'
               className='w-full lg:w-11/12 h-10 bg-slate-100 my-6 rounded-xl pl-5 mt-4'
-              {...register("Email", {
+              {...register("email", {
                 required: { value: true, message: "This Field is required" },
                 minLength: { value: 3, message: "Min length is 3" }
               })}
             />
-            {errors.Email && <div className='text-left ml-2 text-red-500 text-sm'>{errors.Email.message}</div>}
-             
+            {errors.email && <div className='text-left ml-2 text-red-500 text-sm'>{errors.email.message}</div>}
+
             <input
               type="password"
+              name='password'
+              onChange={handleChange}
               placeholder='Create Password'
               className='w-full lg:w-11/12 h-10 rounded-xl bg-slate-100 pl-5 mt-4'
               {...register("password", {
@@ -56,19 +91,17 @@ const SignUp = () => {
               })}
             />
             {errors.password && <div className='text-left ml-2 text-red-500 text-sm'>{errors.password.message}</div>}
-                  
-            <Link to={id === 'admin' ? "/admin" : "/home"}>
-              <button className={buttonClass} disabled={!isValid}>
-                Sign up
-              </button>
-            </Link>
+
+            <button className={buttonClass} disabled={!isValid} type="submit">
+              Sign up
+            </button>
           </form>
-                         
-          <p className='text-slate-500 text-sm pt-3'>Already have an account? <Link to={"/login"} className='text-blue-500 underline'>Login </Link></p>
+
+          <p className='text-slate-500 text-sm pt-3'>Already have an account? <Link to={"/login"} className='text-blue-500 underline'>Login</Link></p>
           {id === 'admin' ? (
-            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup"} className='text-blue-500 underline'>Sign up </Link> as User</p>
+            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup"} className='text-blue-500 underline'>Sign up</Link> as User</p>
           ) : (
-            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup/admin"} className='text-blue-500 underline'>Sign up </Link> as Admin</p>
+            <p className='text-slate-500 text-sm pt-3'> <Link to={"/signup/admin"} className='text-blue-500 underline'>Sign up</Link> as Admin</p>
           )}
         </div>
       </div>

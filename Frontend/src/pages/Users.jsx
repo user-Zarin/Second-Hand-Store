@@ -69,7 +69,7 @@ const Users = () => {
                                 />
                             </td>
                             <td className="p-4 text-center">
-                                <button className=" text-black rounded-full px-4 py-2 hover:shadow-lg transition duration-300 ease-in-out ">
+                                <button className=" text-black rounded-full px-4 py-2 hover:shadow-md transition duration-300 ease-in-out ">
                                     <Delete />
                                 </button>
                             </td>

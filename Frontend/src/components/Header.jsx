@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import secondhand from "../assets/secondhand.png"
 import {
   Search,
   ShoppingCartOutlined,
@@ -13,9 +14,9 @@ const Header = () => {
     <>
       <div className="sticky top-0 z-50 bg-blue-950 shadow-md ">
         <div className="wrapper pr-[10px] flex justify-between items-center mobile:pl-0 mobile:pr-0">
-          <div className="w-[90px] m-3 pl-6">
+          <div className="w-[200px] m-3 pl-2">
             <NavLink to="/">
-              <img src={logo} alt="logo" className="" />
+              <img src={secondhand} alt="logo" className="" />
             </NavLink>
           </div>
 
@@ -66,17 +67,13 @@ const Header = () => {
             </div>
 
             <div className="hidden sm:flex text-xl mr-3  font-bold ">
-              <NavLink className={style}>
-                <button className="bg-gradient-to-r from-blue-300 to-blue-700 rounded-lg text-white pl-4 pt-2 pb-2 pr-4">
+              <NavLink className={style} to="/sell">
+                <button className=" bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] rounded-lg text-white pl-4 pt-2 pb-2 pr-4  w-20 h-11 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
                   Sell
                 </button>
               </NavLink>
             </div>
-            <div className="hidden sm:flex text-xl pt-2 ml-3 font-bold text-blue-950 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl w-20 h-11 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105">
-              <NavLink className={style} to={"/sell"}>
-                <p>Sell</p>
-              </NavLink>
-            </div>
+           
           </div>
         </div>
       </div>

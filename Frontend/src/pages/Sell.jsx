@@ -7,8 +7,9 @@ import Footer from "../components/Footer.jsx";
 import Header from '../components/Header.jsx';
 import { Link } from 'react-router-dom'
 const Sell = () => {
-  const inputref=useRef(null);
+  
   const inputref1=useRef(null);
+  const inputref=useRef(null);
   const handleClick=()=>{
    inputref.current.click();
   }
@@ -28,18 +29,24 @@ const Sell = () => {
   const onClick=()=>{
     alert("posted sucessfully")
   }
+  const on_Hover="hover:border-2  border-solid border-slate-300"
   return (
-    <div className='flex flex-col items-center font-sans  bg-[#D6C0B3]'>
-      <Header/>
-       <h1 className='text-2xl font-semibold mt-0 mb-6 pt-24'>POST  YOUR  AD</h1>
+    <>
+    <Header/>
+    <div className='flex flex-col items-center font-sans  bg-slate-100'>
+      
+       <h1 className='text-2xl font-semibold mt-0 mb-6  pt-12 text-blue-900'>POST  YOUR  AD</h1>
        
-        <div className='flex flex-col items-start pl-9 pt-14 justify-start  w-11/12   rounded-lg bg-white'>
+       
+
+        <div className=' items-start   w-11/12   rounded-lg shadow-lg bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden'>
+        <div className="flex flex-col items-start pl-9 pt-14 justify-start  w-full  rounded-lg bg-white overflow-hidden">
         <label > Title*</label>
-        <input type="text"  className='bg-[#eaecee]  rounded-lg h-14 w-1/2'/>
+        <input type="text"  className='bg-[#eaecee]  rounded-lg h-14 w-1/2 hover:border-slate-300 hover:border-2 hover:border-solid' />
         <p className='text-slate-400 text-sm font-normal mb-7'>Mention the key features of your item (e.g. brand, model, type)</p>
         
         <label > Category</label>
-        <select className=" border-2 border-solid mb-7 w-1/2 h-14 rounded-xl" name="" id="">
+        <select className={on_Hover+" bg-[#eaecee] mb-7 w-1/2 h-14 rounded-xl"} name="" id="">
             <option value="">Cloths</option>
             <option value="">Cars</option>
             <option value="">Mobile</option>
@@ -52,7 +59,7 @@ const Sell = () => {
         </select>
         
         <label > used duration</label>
-        <select className=" border-2 border-solid mb-7 w-1/2 h-14 rounded-xl" name=""  id="">
+        <select className={on_Hover+" bg-[#eaecee] mb-7 w-1/2 h-14 rounded-xl"}  name=""  id="">
         <option value="" selected > none</option>
             <option value="">Less than 6 Months</option>
             <option value="">6 Months - 1 Year</option>
@@ -62,10 +69,10 @@ const Sell = () => {
             
         </select>
          <label>Price</label>
-        <input type="text" className='mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2' />
+        <input type="text" className='mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2 hover:border-slate-300 hover:border-2 hover:border-solid' />
 
         <label >Description</label>
-        <textarea cols={50} rows={5} className='bg-[#eaecee]  rounded-xl max-sm:w-52'></textarea>
+        <textarea cols={50} rows={5} className='bg-[#eaecee]  rounded-xl max-sm:w-52 hover:border-slate-300 hover:border-2 hover:border-solid'></textarea>
         <p className='text-slate-400 text-sm font-normal mb-7 '>Include condition, features and reason for selling</p>
 
         
@@ -78,11 +85,13 @@ const Sell = () => {
         {file1? <img src={URL.createObjectURL(file1)} className='w-40 h-36'/>:null}
         <input type="file"ref={inputref1} className='mb-7 hidden' onChange={handleChange1} />
         </div>
-         
         </div>
-        <Link to={"/home"}> <button className='scroll-auto bg-[#FFFDF0] w-40 h-11 mt-8 mb-9 rounded-lg font-semibold' onClick={onClick}>POST</button></Link>
-        <Footer/>
-    </div>
+        </div>
+        <Link to={"/home"}> <button className='scroll-auto bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden w-40 h-11 mt-8 mb-9 rounded-lg font-semibold' onClick={onClick}>POST</button></Link>
+        </div>
+    
+    <Footer/>
+    </>
   )
 }
 
