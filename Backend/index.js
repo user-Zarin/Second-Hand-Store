@@ -1,13 +1,29 @@
 import express from "express"
-import {db} from "./connect.js"
-const port = 3000
+const port = 3300
+import categoryRoutes from "./routes/category.js";
+import cartRoutes from "./routes/cartRoute.js";
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 const app = express()
+app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+app.use(express.json());
+app.use(cookieParser())
 
-app.get('/', (req, res) => {
-    res.send('Second Hand Hub')
-})  
+app.use('/api/category', categoryRoutes);
+app.use('/api/cart',cartRoutes)
 
-app.listen(port,(req,res)=>{
-    console.log("App listening on port ",port)
+
+app.get('/',(req,res)=>{
+    res.send("second hand store")
+}
+)
+
+app.listen(port,()=>{
+    console.log("App listening on port "+port)
 })
+

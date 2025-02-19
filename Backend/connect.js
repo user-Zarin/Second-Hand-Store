@@ -1,5 +1,5 @@
 import mysql from "mysql2";
-export const db = mysql.createConnection({
+ const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: 'root',
@@ -13,3 +13,5 @@ db.connect((err) => {
         console.log('Database connected successfully');
     }
 });
+
+export default db
