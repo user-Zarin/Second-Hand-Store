@@ -6,19 +6,21 @@ import axios from 'axios'
 const Login = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
   const { id } = useParams();
-   const [inputValues,setInputValues]=useState({
-    name:'',
-    password:''
-   })
+   
  const navigate = useNavigate();
  
   const [err, setErr] = useState(null);
   axios.defaults.withCredentials=true;
-  const handelSub = async(event) => {
+  const handelSub = async(data) => {
     try {
-      const res = await axios.post('http://localhost:3000/auth/login', inputValues);
+      const res = await axios.post('http://localhost:3300/auth/login', data);
       if (res.data.Status === "Success") {
+        alert("Login successfully")
+        if(id === 'admin'){
+          navigate("/dashboard/admin")
+        }else{
         navigate("/home");
+        }
       } else {
         alert(res.data.Message);
       }
@@ -49,7 +51,7 @@ const Login = () => {
             name='name'
             placeholder='Email address'
             className={inputClass + ' my-6'}
-            onChange={e=>{setInputValues({...inputValues,name:e.target.value})}}
+            
             {...register("name", {
               required: { value: true, message: "This Field is required" },
               minLength: { value: 3, message: "Min length is 3" }
@@ -62,7 +64,7 @@ const Login = () => {
               name='password'
               placeholder='Password'
               className={inputClass}
-              onChange={e=>{setInputValues({...inputValues,password:e.target.value})}}
+             
               {...register("password", {
                 required: { value: true, message: "This Field is required" },
                 minLength: { value: 3, message: "Min length is 3" },
@@ -71,12 +73,9 @@ const Login = () => {
             />
             {errors.password && <div className={errorClass}>{errors.password.message}</div>}
             
-           {/**  <Link to={id === 'admin' ? "/dashboard/admin" : "/home"}>
-              <button className={buttonClass} disabled={!isValid}>
-                Sign in
-              </button>
-            </Link>*/}
-             <button className={buttonClass} disabled={!isValid}>
+           
+           
+          <button className={buttonClass} disabled={!isValid}>
                 Sign in
               </button>
           </form>

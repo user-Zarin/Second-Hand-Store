@@ -4,14 +4,16 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 const saltRounds = 10;
  export const login = (req, res) => {
-  const sql = `SELECT * FROM user_info WHERE name=?`;
-  db.query(sql, [req.body.name], (err, data) => {
+  const sql = `SELECT * FROM user_info WHERE name=? `;
+  
+    db.query(sql, [req.body.name], (err, data) => {
      if (err) {
        console.log(err);
        return res.json({ Message: "Server side error" });
      }
 
      if (data.length > 0) {
+     
        bcrypt.compare(req.body.password, data[0].password, (err, result) => {
          if (err) {
            console.log(err);
@@ -23,17 +25,15 @@ const saltRounds = 10;
 
          const name = data[0].name;
          const token = jwt.sign({ name }, "jwtSecretKey", { expiresIn: "1d" });
-        res.cookie("access_token", token);
+         res.cookie("access_token", token);
          console.log("success");
          return res.json({ Status: "Success" });
-       });
-     } else {
-       return res.json({ Message: "No records found" });
-     }
-   });
- };
-
-
+         });
+       } else {
+         return res.json({ Message: "No records found" });
+       }
+     });
+  }
 
 
 export const rsignup = (req, res) => {
@@ -49,7 +49,7 @@ export const rsignup = (req, res) => {
         hash
       ];
       
-      db.query(sql,[values] , (err, data) => {
+      db.query(sql,[values], (err, data) => {
         if (err) {
           console.log(err);
           return res.status(500).json(err);
@@ -63,6 +63,8 @@ export const rsignup = (req, res) => {
  
 };
 
+
 export const logout = (req, res) => {
-  res.clearCookie("access_token").status(200).json("Logout successful");
+  res.clearCookie("access_token");
+  return res.json({Status:true})
 };

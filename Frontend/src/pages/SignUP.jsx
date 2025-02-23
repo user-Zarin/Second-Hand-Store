@@ -6,33 +6,31 @@ import axios from 'axios';
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
   const { id } = useParams();
-  const [inputValues, setInputValues] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+ 
   const navigate = useNavigate();
   const [err, setErr] = useState(null);
 
-  const handleChange = (e) => {
-    setInputValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-  const handleSub = async () => {
+ 
+  const handleSub = async (data) => {
+   
     try {
-      const res=await axios.post("http://localhost:3000/auth/signup", inputValues,{
+      const res=await axios.post("http://localhost:3300/auth/signup", data,{
         withCredentials : true
       })
      .then(res=>{
       if(res.status===201){
-       
+       if(id==='admin'){
         alert("Registration Successful");
-        navigate('/home');
+        navigate('/dashboard/admin');
+       }
+       else{
+        navigate('/home')
+       }
       }
       else{
         alert("error")
       }
      })
-       
       
     } catch (err) {
       setErr(err.response?.data || "An error occurred");
@@ -53,7 +51,6 @@ const SignUp = () => {
 
           <form onSubmit={handleSubmit(handleSub)} className='px-8 lg:px-0'>
             <input
-              onChange={handleChange}
               type="text"
               name='name'
               placeholder='Enter your name'
@@ -68,7 +65,6 @@ const SignUp = () => {
             <input
               type="email"
               name='email'
-              onChange={handleChange}
               placeholder='Email address'
               className='w-full lg:w-11/12 h-10 bg-slate-100 my-6 rounded-xl pl-5 mt-4'
               {...register("email", {
@@ -81,7 +77,6 @@ const SignUp = () => {
             <input
               type="password"
               name='password'
-              onChange={handleChange}
               placeholder='Create Password'
               className='w-full lg:w-11/12 h-10 rounded-xl bg-slate-100 pl-5 mt-4'
               {...register("password", {

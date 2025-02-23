@@ -7,9 +7,9 @@ const AddToCart = () => {
   return (
     <>
       <Header />
-      <div className=" min-h-screen border-t pt-14 containerSize">
+      <div className=" min-h-screen p-10 bg-amber-50 m-10 pt-14 ">
         <div className="text-2xl mb-3">
-          <h1 className="font-bold text-blue-900">Shopping Cart</h1>
+          <h1 className="font-bold text-3xl text-blue-900">Shopping Cart</h1>
         </div>
         <div>
           {historyData.map((item, index) => {
