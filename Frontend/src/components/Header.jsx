@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
+import secondhand from "../assets/secondhand.png"
 import {
   Search,
   ShoppingCartOutlined,
@@ -16,9 +17,9 @@ const Header = () => {
     <>
       <div className="sticky finxed top-0 z-50 bg-blue-950 shadow-md">
         <div className="wrapper pr-[10px] flex justify-between items-center mobile:pl-0 mobile:pr-0">
-          <div className="w-[90px] m-3 pl-6">
+          <div className="w-[200px] m-3 pl-2">
             <NavLink to="/">
-              <img src={logo} alt="logo" className="" />
+              <img src={secondhand} alt="logo" className="" />
             </NavLink>
           </div>
 
