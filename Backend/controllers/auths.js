@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 const saltRounds = 10;
  export const login = (req, res) => {
-  const sql = `SELECT * FROM user_info WHERE name=? `;
+  const sql = `SELECT * FROM user_info WHERE email=? `;
   
-    db.query(sql, [req.body.name], (err, data) => {
+    db.query(sql, [req.body.email], (err, data) => {
      if (err) {
        console.log(err);
        return res.json({ Message: "Server side error" });
@@ -23,8 +23,8 @@ const saltRounds = 10;
            return res.status(400).json({ Message: "Wrong password" });
          }
 
-         const name = data[0].name;
-         const token = jwt.sign({ name }, "jwtSecretKey", { expiresIn: "1d" });
+         const email = data[0].email;
+         const token = jwt.sign({ email }, "jwtSecretKey", { expiresIn: "1d" });
          res.cookie("access_token", token);
          console.log("success");
          return res.json({ Status: "Success" });

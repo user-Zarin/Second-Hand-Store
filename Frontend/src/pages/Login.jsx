@@ -47,17 +47,17 @@ const Login = () => {
           
           <form onSubmit={handleSubmit(handelSub)}>
             <input
-            type="name"
-            name='name'
+            type="email"
+            name='email'
             placeholder='Email address'
             className={inputClass + ' my-6'}
             
-            {...register("name", {
+            {...register("email", {
               required: { value: true, message: "This Field is required" },
               minLength: { value: 3, message: "Min length is 3" }
             })}
             />
-            {errors.name && <div className={errorClass}>{errors.name.message}</div>}
+            {errors.email && <div className={errorClass}>{errors.email.message}</div>}
             
             <input
               type="password"

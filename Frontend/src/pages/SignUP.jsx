@@ -24,6 +24,7 @@ const SignUp = () => {
         navigate('/dashboard/admin');
        }
        else{
+        alert("Registration Successful");
         navigate('/home')
        }
       }
