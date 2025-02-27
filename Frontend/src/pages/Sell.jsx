@@ -68,6 +68,7 @@ const Sell = () => {
         { withCredentials: true } 
       );
       console.log(response.data);
+      alert("Product has been posted successfully!");
       navigate("/home");
     } catch (error) {
       console.error("Error adding product:", error);
@@ -77,11 +78,19 @@ const Sell = () => {
       }
     }
   };
+  const on_Hover="hover:border-2  border-solid border-slate-300"
 
   return (
-    <div className="flex flex-col items-center font-sans bg-[#D6C0B3]">
-      <Header />
-      <h1 className="text-2xl font-semibold mt-0 mb-6 pt-24">POST YOUR AD</h1>
+  <>
+  <Header />
+    <div className='flex flex-col items-center font-sans  bg-slate-100 py-3'>
+      
+    <h1 className='text-2xl font-semibold mt-0 mb-6  pt-12 text-blue-900'>POST  YOUR  PRODUCT</h1>
+    
+     <div className=' items-start   w-11/12   rounded-lg shadow-lg bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden'>
+     <div className="flex flex-col items-start pl-9 pt-14 justify-start  w-full  rounded-lg bg-white overflow-hidden">
+     
+     
       <form
         className="flex flex-col items-start pl-9 pt-14 justify-start w-11/12 rounded-lg bg-white"
         onSubmit={handleSubmit}
@@ -92,7 +101,7 @@ const Sell = () => {
         <input
           id="title"
           type="text"
-          className="bg-[#eaecee] rounded-lg h-14 w-1/2 p-2"
+          className='bg-[#eaecee]  rounded-lg h-14 w-1/2 hover:border-slate-300 hover:border-2 hover:border-solid'
           placeholder="Enter item title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -105,7 +114,7 @@ const Sell = () => {
         <label htmlFor="category">Category</label>
         <select
           id="category"
-          className="border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
+          className={on_Hover+" bg-[#eaecee] mb-7 w-1/2 h-14 rounded-xl"}
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -130,7 +139,7 @@ const Sell = () => {
         <label htmlFor="used-duration">Used Duration</label>
         <select
           id="used-duration"
-          className="border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
+          className={on_Hover+" bg-[#eaecee] mb-7 w-1/2 h-14 rounded-xl"} 
           value={used_duration}
           onChange={(e) => setUsed_duration(e.target.value)}
         >
@@ -153,12 +162,14 @@ const Sell = () => {
         <input
           id="price"
           type="text"
-          className="mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2 p-2"
+          className='mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2 hover:border-slate-300 hover:border-2 hover:border-solid'
           placeholder="Enter price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-
+  
+  
+   
         {/* Description */}
         <label htmlFor="description">Description</label>
         <textarea
@@ -207,16 +218,20 @@ const Sell = () => {
         {/* Post Button */}
         <button
           type="submit"
-          className="bg-[#4d440a] w-40 h-11 mt-8 mb-9 rounded-lg font-semibold"
+          className="scroll-auto bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden w-40 h-11 mt-8 mb-9 rounded-lg font-semibold"
           disabled={isLoading}
         >
           {isLoading ? "Posting..." : "POST"}
         </button>
       </form>
 
-      <Footer />
     </div>
-  );
-};
+    </div>
+    
+    </div>
+    <Footer/>
+    </>
+  )
+}
 
 export default Sell;

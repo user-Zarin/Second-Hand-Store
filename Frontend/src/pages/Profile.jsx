@@ -1,13 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import UserInfo from "../components/UserInfo.jsx";
 import Posts from "../components/Posts.jsx";
 import { UserContext } from "../context/User";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
-import { NavLink } from "react-router-dom";
+import { data, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Profile() {
   const { input } = useContext(UserContext);
+  const [err, setErr] = useState(null);
+  const navigate = useNavigate();
+  const handleClick = async () => {
+    try {
+      const res = await axios.get('http://localhost:3300/auth/logout',{
+        withCredentials: true
+      });
+      if (res.data.Status) {
+        localStorage.removeItem("valid")
+        navigate('/login')
+      }
+    }
+    catch (err) {
+      setErr(err.response?.data || "An error occurred");
+    }
+  }
 
   return (
     <>
@@ -40,6 +57,9 @@ function Profile() {
             </div>
           </div>
         </div>
+        <button className="bg-gradient-to-r from-cyan-400 to-blue-500 h-10 w-40 rounded-3xl mb-12 " onClick={handleClick}>
+          logout
+        </button>
       </div>
       <Footer />
     </>

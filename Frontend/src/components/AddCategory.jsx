@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef ,useState} from 'react';
 import axios from "axios"; // Import Axios
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCamera,faCirclePlus} from '@fortawesome/free-solid-svg-icons';
 const AddCategory = ({ onClose }) => {
   const popupRef = useRef();
 
@@ -107,15 +107,7 @@ const AddCategory = ({ onClose }) => {
         </div>
       </form>
 
-      <Link to={"/dashboard/admin"}>
-        <button
-          className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white w-40 h-11 mt-8 mb-9 rounded-lg font-semibold cursor-pointer"
-          onClick={handleClick}
-        >
-          {" "}
-          ADD{" "}
-        </button>
-      </Link>
+    
     </div>
   );
 };

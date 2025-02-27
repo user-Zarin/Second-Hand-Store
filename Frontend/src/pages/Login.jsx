@@ -1,16 +1,35 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
+import { useState } from 'react';
+import axios from 'axios'
 const Login = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
   const { id } = useParams();
-
-  const onSubmit = (data) => {
-    console.log(data);
-    alert("Login Successful");
+   
+ const navigate = useNavigate();
+ 
+  const [err, setErr] = useState(null);
+  axios.defaults.withCredentials=true;
+  const handelSub = async(data) => {
+    try {
+      const res = await axios.post('http://localhost:3300/auth/login', data);
+      if (res.data.Status === "Success") {
+        alert("Login successfully")
+        if(id === 'admin'){
+          navigate("/dashboard/admin")
+        }else{
+        navigate("/home");
+        }
+      } else {
+        alert(res.data.Message);
+      }
+    } catch (err) {
+      setErr(err.response?.data || "An error occurred");
+    }
+   
+   
   };
-
   const inputClass = 'w-11/12 h-14 bg-slate-100 rounded-xl pl-5 ml-7 lg:max-w-full md:min-w-fit';
   const errorClass = 'text-left ml-8 text-red-500 text-sm';
   const buttonClass = 'bg-purple-600 text-center w-11/12 h-14 rounded-xl mt-5 text-lg font-serif font-medium text-slate-100 ml-7 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 hover:bg-purple-800 duration-500';
@@ -26,22 +45,26 @@ const Login = () => {
             <p className='text-slate-500 text-sm'>Please login to your account</p>
           </div>
           
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handelSub)}>
             <input
-              type="email"
-              placeholder='Email address'
-              className={inputClass + ' my-6'}
-              {...register("Email", {
-                required: { value: true, message: "This Field is required" },
-                minLength: { value: 3, message: "Min length is 3" }
-              })}
+            type="email"
+            name='email'
+            placeholder='Email address'
+            className={inputClass + ' my-6'}
+            
+            {...register("email", {
+              required: { value: true, message: "This Field is required" },
+              minLength: { value: 3, message: "Min length is 3" }
+            })}
             />
-            {errors.Email && <div className={errorClass}>{errors.Email.message}</div>}
+            {errors.email && <div className={errorClass}>{errors.email.message}</div>}
             
             <input
               type="password"
+              name='password'
               placeholder='Password'
               className={inputClass}
+             
               {...register("password", {
                 required: { value: true, message: "This Field is required" },
                 minLength: { value: 3, message: "Min length is 3" },
@@ -50,11 +73,11 @@ const Login = () => {
             />
             {errors.password && <div className={errorClass}>{errors.password.message}</div>}
             
-            <Link to={id === 'admin' ? "/admin" : "/home"}>
-              <button className={buttonClass} disabled={!isValid}>
+           
+           
+          <button className={buttonClass} disabled={!isValid}>
                 Sign in
               </button>
-            </Link>
           </form>
 
           <p className='text-slate-500 text-sm pt-3 ml-7'>
