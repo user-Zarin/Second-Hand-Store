@@ -16,11 +16,17 @@ import Product from "./pages/Product.jsx";
 import Admin from "./pages/Admin.jsx";
 import Users from "./pages/Users.jsx";
 import AddCategory from "./components/AddCategory.jsx";
+
+import A_trial from "./components/A_trial.jsx"
+
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+
+      <Route path="/trial" element={<A_trial />} />
+
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
@@ -40,6 +46,7 @@ const App = () => {
         <Route path="/dashboard" element={<DashBoard />}>
           <Route path="Admin" element={<Admin />} /> 
           <Route path="progress" element={<UserProgress />} />
+          
           <Route path="users" element={<Users />} />
         </Route>
       </Routes>

@@ -33,7 +33,7 @@ export const data = {
 
 export function PieChart() {
   return (
-    <div style={{ width: "400px", height: "400px" }}>
+    <div className="w-[40vw] h-[30vw]">
       <Pie data={data} />
     </div>
   );

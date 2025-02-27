@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import GroupIcon from "@material-ui/icons/Group";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import { PhotoAlbum } from "@material-ui/icons";
 const DashBoard = () => {
   return (
     <div className="min-h-screen">
@@ -43,6 +44,19 @@ const DashBoard = () => {
             >
               <p className="max-sm:hidden font-bold ">
                 <GroupIcon /> User
+              </p>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-white ${
+                  isActive && "bg-yellow-100 border-r-4 border-yellow-600"
+                }`
+              }
+              to={"/dashboard/Admin"}
+            >
+              <p className="max-sm:hidden font-bold ">
+                <PhotoAlbum />
+                Admin
               </p>
             </NavLink>
             <NavLink

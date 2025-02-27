@@ -1,139 +1,219 @@
-import React from "react";
-import { useRef, useState } from "react";
-
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
-import { Link } from "react-router-dom";
+import axios from "axios";
+
 const Sell = () => {
-  const inputref = useRef(null);
-  const inputref1 = useRef(null);
-  const handleClick = () => {
-    inputref.current.click();
+  const popupRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [used_duration, setUsed_duration] = useState("None");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("Clothes");
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+
+    // Validate number of images
+    if (images.length + files.length > 5) {
+      alert("You can upload a maximum of 5 images.");
+      return;
+    }
+
+    // Validate image size (e.g., 5MB limit)
+    const validFiles = files.filter((file) => file.size <= 5 * 1024 * 1024);
+    if (validFiles.length !== files.length) {
+      alert("Some files exceed the 5MB size limit and were not uploaded.");
+    }
+
+    setImages((prevImages) => [...prevImages, ...validFiles]);
   };
-  const handleClick1 = () => {
-    inputref1.current.click();
+
+  const removeImage = (index) => {
+    setImages(images.filter((_, i) => i !== index));
   };
-  const [file, setFile] = useState();
-  const [file1, setFile1] = useState();
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    setFile(file);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Validate required fields on the client side
+    if (!title || !desc || !used_duration || !category || !price || images.length === 0) {
+      alert("Please fill out all required fields and upload at least one image.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("p_name", title);
+    formData.append("p_desc", desc);
+    formData.append("used_duration", used_duration);
+    formData.append("category", category);
+    formData.append("price", price);
+    images.forEach((image) => {
+      formData.append("image", image);
+    });
+  
+    // Log formData to inspect the payload
+    console.log("Form Data:", formData); 
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:3300/api/post",
+        formData,
+        { withCredentials: true } 
+      );
+      console.log(response.data);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error adding product:", error);
+      if (error.response) {
+        console.error("Response Data:", error.response.data);
+        console.error("Response Status:", error.response.status);
+      }
+    }
   };
-  const handleChange1 = (e) => {
-    const file1 = e.target.files[0];
-    setFile1(file1);
-  };
-  const onClick = () => {
-    alert("posted sucessfully");
-  };
+
   return (
-    <div className="flex flex-col items-center font-sans  bg-[#D6C0B3]">
+    <div className="flex flex-col items-center font-sans bg-[#D6C0B3]">
       <Header />
       <h1 className="text-2xl font-semibold mt-0 mb-6 pt-24">POST YOUR AD</h1>
-
-      <div className="flex flex-col items-start pl-9 pt-14 justify-start  w-11/12   rounded-lg bg-white">
-        <label> Title*</label>
-        <input type="text" className="bg-[#eaecee]  rounded-lg h-14 w-1/2" />
-        <p className="text-slate-400 text-sm font-normal mb-7">
-          Mention the key features of your item (e.g. brand, model, type)
+      <form
+        className="flex flex-col items-start pl-9 pt-14 justify-start w-11/12 rounded-lg bg-white"
+        onSubmit={handleSubmit}
+        ref={popupRef}
+      >
+        {/* Title */}
+        <label htmlFor="title">Title*</label>
+        <input
+          id="title"
+          type="text"
+          className="bg-[#eaecee] rounded-lg h-14 w-1/2 p-2"
+          placeholder="Enter item title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <p className="text-slate-400 text-sm font-normal mb-7 p-2">
+          Mention the key features of your item (e.g., brand, model, type).
         </p>
 
-        <label> Category</label>
+        {/* Category */}
+        <label htmlFor="category">Category</label>
         <select
-          className=" border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
-          name=""
-          id=""
+          id="category"
+          className="border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="">Cloths</option>
-          <option value="">Cars</option>
-          <option value="">Mobile</option>
-          <option value="">Books</option>
-          <option value="">Pets</option>
-          <option value="">Appliances</option>
-          <option value="">Toys</option>
-          <option value="">Bikes</option>
-          <option value="">Furniture</option>
+          {[
+            "Clothes",
+            "Cars",
+            "Mobile",
+            "Books",
+            "Pets",
+            "Appliances",
+            "Toys",
+            "Bikes",
+            "Furniture",
+          ].map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
 
-        <label> used duration</label>
+        {/* Used Duration */}
+        <label htmlFor="used-duration">Used Duration</label>
         <select
-          className=" border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
-          name=""
-          id=""
+          id="used-duration"
+          className="border-2 border-solid mb-7 w-1/2 h-14 rounded-xl"
+          value={used_duration}
+          onChange={(e) => setUsed_duration(e.target.value)}
         >
-          <option value="" selected>
-            {" "}
-            none
-          </option>
-          <option value="">Less than 6 Months</option>
-          <option value="">6 Months - 1 Year</option>
-          <option value="">1 Year - 2 Years</option>
-          <option value="">2 Years - 4 Years</option>
-          <option value="">More than 4 Years</option>
+          {[
+            "None",
+            "Less than 6 Months",
+            "6 Months - 1 Year",
+            "1 Year - 2 Years",
+            "2 Years - 4 Years",
+            "More than 4 Years",
+          ].map((duration) => (
+            <option key={duration} value={duration}>
+              {duration}
+            </option>
+          ))}
         </select>
-        <label>Price</label>
+
+        {/* Price */}
+        <label htmlFor="price">Price</label>
         <input
+          id="price"
           type="text"
-          className="mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2"
+          className="mb-7 bg-[#eaecee] rounded-lg h-14 w-1/2 p-2"
+          placeholder="Enter price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
         />
 
-        <label>Description</label>
+        {/* Description */}
+        <label htmlFor="description">Description</label>
         <textarea
+          id="description"
           cols={50}
           rows={5}
-          className="bg-[#eaecee]  rounded-xl max-sm:w-52"
+          className="bg-[#eaecee] rounded-xl max-sm:w-52 p-2"
+          placeholder="Include condition, features, and reason for selling"
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
         ></textarea>
-        <p className="text-slate-400 text-sm font-normal mb-7 ">
-          Include condition, features and reason for selling
-        </p>
 
-        <div className="flex flex-row gap-3">
-          <button
-            onClick={handleClick}
-            className="border-2 border-dashed border-black w-28 h-24 mb-6 rounded-lg "
-          >
-            <FontAwesomeIcon icon={faCamera} />
-            <p>Add Photo</p>
-          </button>
-          {file ? (
-            <img src={URL.createObjectURL(file)} className="w-40  h-36" />
-          ) : null}
+        {/* File Input */}
+        <div className="my-4">
           <input
             type="file"
-            ref={inputref}
-            className="mb-7 hidden "
-            onChange={handleChange}
+            id="file"
+            name="file"
+            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-blue-500 p-3 my-2 "
+            multiple
+            accept="image/*"
+            onChange={handleFileChange}
           />
 
-          <button
-            onClick={handleClick1}
-            className="border-2 border-dashed border-black w-28 h-24 rounded-lg "
-          >
-            <FontAwesomeIcon icon={faCamera} />
-            <p>Add Photo</p>
-          </button>
-          {file1 ? (
-            <img src={URL.createObjectURL(file1)} className="w-40 h-36" />
-          ) : null}
-          <input
-            type="file"
-            ref={inputref1}
-            className="mb-7 hidden"
-            onChange={handleChange1}
-          />
+          {/* Preview Selected Images */}
+          <div className="flex flex-wrap gap-3 mt-4">
+            {images.map((file, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Selected"
+                  className="w-28 h-28 rounded-lg border"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs"
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <Link to={"/home"}>
-        {" "}
+
+        {/* Post Button */}
         <button
-          className="scroll-auto bg-[#FFFDF0] w-40 h-11 mt-8 mb-9 rounded-lg font-semibold"
-          onClick={onClick}
+          type="submit"
+          className="bg-[#4d440a] w-40 h-11 mt-8 mb-9 rounded-lg font-semibold"
+          disabled={isLoading}
         >
-          POST
+          {isLoading ? "Posting..." : "POST"}
         </button>
-      </Link>
+      </form>
+
       <Footer />
     </div>
   );

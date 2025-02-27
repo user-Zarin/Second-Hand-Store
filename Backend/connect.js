@@ -13,3 +13,5 @@ db.connect((err) => {
         console.log('Database connected successfully');
     }
 });
+
+export default db

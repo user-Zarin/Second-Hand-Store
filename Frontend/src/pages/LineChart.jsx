@@ -49,7 +49,7 @@ export const data = {
 
 export function LineGraph() {
   return (
-    <div style={{ width: "600px", height: "400px" }}>
+    <div className="w-[50vw] h-[40vh]">
       <Line options={options} data={data} />
     </div>
   );
