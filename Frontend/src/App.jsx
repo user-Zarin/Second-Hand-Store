@@ -40,7 +40,7 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/history" element={<History />} />
         <Route path="/addtocart" element={<AddToCart />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product/:id" element={<Product />} />
         
         {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashBoard />}>
