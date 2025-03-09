@@ -16,6 +16,7 @@ import Product from "./pages/Product.jsx";
 import Admin from "./pages/Admin.jsx";
 import Users from "./pages/Users.jsx";
 import AddCategory from "./components/AddCategory.jsx";
+import { UserContext } from './context/User';
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,10 +24,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-       
         <Route path="/signup/:id" element={<SignUP />} />
-        <Route path="/signup" element={<SignUP/>}/>
-        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUP/>} />
+        <Route path="/login" element={<Login />}  />
         <Route path="/login/:id" element={<Login />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/category/:id" element={<ProductPage />} />
@@ -35,16 +35,15 @@ const App = () => {
         <Route path="/history" element={<History />} />
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/product" element={<Product />} />
-        
         {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashBoard />}>
-          <Route path="Admin" element={<Admin />} /> 
-          <Route path="progress" element={<UserProgress />} />
-          
-          <Route path="users" element={<Users />} />
+        <Route path="Admin" element={<Admin />} /> 
+        <Route path="progress" element={<UserProgress />} />
+        <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </BrowserRouter>
+   
   );
 };
 
