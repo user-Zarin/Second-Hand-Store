@@ -16,7 +16,7 @@ export const UserContextProvider = ({ children }) => {
       });
       console.log("Login Response:", res.data);
       if (res.data.Status === "Success" && res.data.user) {
-        setInput(res.data.user); // Update the state with the user data
+        setInput(res.data.user); 
         alert("Login successfully");
         return { success: true, user: res.data.user };
       } else {
@@ -71,10 +71,9 @@ export const UserContextProvider = ({ children }) => {
     console.log("Input State Updated:", input); // Log the input state
     if (input) {
       localStorage.setItem("user", JSON.stringify(input));
-      console.log("User saved to localStorage:", input); // Log localStorage update
+     
     } else {
       localStorage.removeItem("user");
-      console.log("User removed from localStorage");
     }
   }, [input]);
 

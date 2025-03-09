@@ -48,13 +48,6 @@ export const updateUser = (req, res) => {
   });
 };
 
-
-
-
-
- 
-
-
 export const uploadPhoto = (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded." });
@@ -63,7 +56,7 @@ export const uploadPhoto = (req, res) => {
     const newFileUrl = `http://localhost:3300/uploads/${req.file.filename}`;
     const userId = req.params.id;
 
-    // Step 1: Get the old profile photo URL
+    
     const getOldPhotoQuery = "SELECT profile_photo FROM user_info WHERE id = ?";
     db.query(getOldPhotoQuery, [userId], (err, results) => {
         if (err) {
@@ -73,7 +66,7 @@ export const uploadPhoto = (req, res) => {
 
         const oldPhotoUrl = results[0]?.profile_photo;
         if (oldPhotoUrl) {
-            // Extract filename from the old URL
+          
             const oldFileName = path.basename(oldPhotoUrl);
             const oldFilePath = path.join("uploads", oldFileName);
 

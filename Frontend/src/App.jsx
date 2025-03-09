@@ -17,11 +17,17 @@ import Admin from "./pages/Admin.jsx";
 import Users from "./pages/Users.jsx";
 import AddCategory from "./components/AddCategory.jsx";
 import { UserContext } from './context/User';
+
+import A_trial from "./components/A_trial.jsx"
+
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+
+      <Route path="/trial" element={<A_trial />} />
+
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/signup/:id" element={<SignUP />} />
@@ -34,7 +40,8 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/history" element={<History />} />
         <Route path="/addtocart" element={<AddToCart />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product/:id" element={<Product />} />
+        
         {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashBoard />}>
         <Route path="Admin" element={<Admin />} /> 

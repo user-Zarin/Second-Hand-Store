@@ -22,7 +22,7 @@ const Products = ({ category }) => {
             <div className="w-full md:w-[20vw] hover:cursor-pointer flex md:flex-col self-center">
             <Link to={'/product'}>
             <img
-              src={`https://via.placeholder.com/150`}
+              src={"https://via.placeholder.com/150"}
               alt={`Product ${index + 1}`}
               className="md:w-full rounded md:h-[35vh] object-cover h-[20vh] w-[35%] self-center "
             />

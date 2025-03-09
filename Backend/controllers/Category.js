@@ -14,9 +14,7 @@ export const addCategory = (req, res) => {
       console.error('Error inserting data into database:', err);
       return res.status(500).json({ error: 'Database insertion error' });
     }
- 
     res.status(200).json({  message: 'Category added successfully'})
-    
   });
 }
 

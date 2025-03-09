@@ -51,9 +51,7 @@ export const login = (req, res) => {
   });
 };
 
-export const verify=(req,res)=>{
-  
-}
+
 export const rsignup = (req, res) => {
   console.log("Received Data:", req.body);
 
