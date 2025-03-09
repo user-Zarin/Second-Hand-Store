@@ -12,7 +12,7 @@ export const addPosts = async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
   }
 
-  const userId = 2; // Temporary user ID
+  const userId = 17; // Temporary user ID
   const images = req.files ? req.files.map((file) => file.filename) : [];
 
   try {
@@ -65,7 +65,7 @@ export const addPosts = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   // Temporary user ID
-  const userId = 2;
+  const userId = 17;
 
   const q = `SELECT id,p_name, image, posting_date FROM product WHERE seller_id = (?)`;
   
@@ -90,7 +90,7 @@ export const updatePosts = async (req, res) => {
   }
 
   const images = req.files ? req.files.map((file) => file.filename) : [];
-  const userId = 2; // Temporary user ID
+  const userId = 17; // Temporary user ID
   if (!userId) {
     return res.status(403).json({ error: "Unauthorized access" });
   }

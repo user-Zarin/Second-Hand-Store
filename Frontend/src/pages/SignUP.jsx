@@ -25,7 +25,7 @@ const SignUp = () => {
        }
        else{
         alert("Registration Successful");
-        navigate('/home')
+        navigate('/login')
        }
       }
       else{
