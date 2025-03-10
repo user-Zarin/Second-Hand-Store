@@ -5,6 +5,8 @@ import categoryRoutes from "./routes/category.js";
 import cartRoutes from "./routes/cartRoute.js";
 import postRoutes from "./routes/user_posts.js";
 import productRoutes from "./routes/products.js";
+import orderRoutes from "./routes/order_details.js";
+import userRoutes from "./routes/users.js";
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import AuthRoutes from './routes/auth.js'
@@ -25,6 +27,8 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/cart',cartRoutes)
 app.use('/api/post',postRoutes)
 app.use('/api/product',productRoutes)
+app.use('/api/order_detail',orderRoutes)
+app.use('/api/user',userRoutes)
 
 
 app.get('/',(req,res)=>{

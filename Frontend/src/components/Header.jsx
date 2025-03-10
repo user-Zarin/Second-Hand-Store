@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-scroll";
 import secondhand from "../assets/secondhand.png"
 import {
   Search,
@@ -18,7 +19,7 @@ const Header = () => {
       <div className="sticky finxed top-0 z-50 bg-blue-950 shadow-md">
         <div className="wrapper pr-[10px] flex justify-between items-center mobile:pl-0 mobile:pr-0">
           <div className="w-[200px] m-3 pl-2">
-            <NavLink to="/">
+            <NavLink to="/home">
               <img src={secondhand} alt="logo" className="" />
             </NavLink>
           </div>
@@ -34,13 +35,14 @@ const Header = () => {
 
           <div className="flex pt-3">
             <div className="hidden sm:flex text-xl pt-2 mr-3 font-bold text-white">
-              <NavLink className={style}>
+              <NavLink className={style} to={"/home"}>
                 <p>Home</p>
+                
               </NavLink>
             </div>
             <div className="hidden sm:flex text-xl pt-2 mr-3 font-bold text-white">
               <NavLink className={style}>
-                <p>Categories</p>
+                <Link to="categories" smooth={true} duration={500} ><p>Categories</p></Link>
               </NavLink>
             </div>
             <div className="hidden sm:flex text-xl pt-2 mr-3 font-bold text-white">

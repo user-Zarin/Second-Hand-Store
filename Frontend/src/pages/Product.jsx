@@ -27,6 +27,20 @@ const Product = () => {
     getProduct();
   }, [productId]);
 
+  const handleBuyNow = async (p_id, seller_id) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3300/api/order_detail/${p_id}`,
+        { seller_id }, // Send seller_id inside an object
+        { withCredentials: true }
+      );
+      // Handle response if needed
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+
   // Parse the image field if it's a stringified array
   const images = typeof product.image === "string" ? JSON.parse(product.image) : product.image || [];
   console.log("Images:", images);
@@ -48,11 +62,11 @@ const Product = () => {
             <p className="mb-8">Mukundnagar, Nagar, Ahmadnagar, Maharashtra - 414001</p>
           </div>
           <p className="mb-14 text-2xl font-bold">
-            <FontAwesomeIcon icon={faIndianRupeeSign} /> Rs. {product.price || "999"}
+            <FontAwesomeIcon icon={faIndianRupeeSign} /> {product.price || "999"}
           </p>
           <div className="flex flex-row">
             <button
-              className="w-[45%] h-11 mr-4 mb-6"
+              className="w-[20vw] h-11 mr-4 mb-6 cursor-pointer"
               style={{
                 borderWidth: "4px",
                 borderRadius: "12px",
@@ -63,8 +77,8 @@ const Product = () => {
             >
               <ShoppingCartOutlined /> Add to cart
             </button>
-            <Link to={"/payment"} className="">
-              <button className="w-[45%] h-11 bg-cyan-500 rounded-xl hover:bg-cyan-600 text-white">
+            <Link to={`/payment/${product.id}/${product.seller_id}`} className="" >
+              <button className="w-[20vw] h-11 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold cursor-pointer" onClick={() => handleBuyNow(product.id,product.seller_id)}>
                 Buy Now
               </button>
             </Link>

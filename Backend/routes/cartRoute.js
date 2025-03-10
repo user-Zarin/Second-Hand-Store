@@ -3,8 +3,8 @@ import { addToCart, updateCart, getUserCart } from '../controllers/cartControlle
 
 const cartRouter = express.Router();
 
-cartRouter.post('/get', getUserCart);
-cartRouter.post('/add', addToCart);
+cartRouter.get('/get', getUserCart);
+cartRouter.post('/add/:pid', addToCart);
 cartRouter.post('/update', updateCart);
 
 export default cartRouter;
