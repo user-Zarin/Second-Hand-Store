@@ -9,17 +9,21 @@ import { ShoppingCartOutlined } from "@material-ui/icons";
 import axios from "axios";
 
 const Product = () => {
-  const [product, setProduct] = useState({}); // Initialize as an object
+  const [product, setProduct] = useState({}); 
   const { id } = useParams();
   const location = useLocation();
-  const productId = id || location.state?.no; // Simplify productId logic
+  const productId = id || location.state?.no; 
+  const [seller, setSeller] = useState({});
+  const [showPopup, setShowPopup] = useState(false); 
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const response = await axios.get(`http://localhost:3300/api/product/${productId}`);
-        setProduct(response.data.product[0]); // Use the first item in the array
-        console.log("Fetched Product:", response.data.product[0]);
+        if (response.data.product.length > 0) {
+          setProduct(response.data.product[0]);
+          console.log("Fetched Product:", response.data.product[0]);
+        }
       } catch (error) {
         console.log("Error fetching product:", error);
       }
@@ -27,28 +31,68 @@ const Product = () => {
     getProduct();
   }, [productId]);
 
+  useEffect(() => {
+    if (product.seller_id) {
+      const getSeller = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3300/user/${product.seller_id}`);
+  
+          setSeller(response.data[0]);
+        } catch (error) {
+          console.log("Error fetching seller:", error);
+          setSeller({ address: "Error fetching seller details" }); // Handle errors gracefully
+        }
+      };
+  
+      getSeller();
+    }
+  }, [product.seller_id]); // Ensure it runs when `product.seller_id` is available
+  
+
   const handleBuyNow = async (p_id, seller_id) => {
     try {
       const response = await axios.post(
         `http://localhost:3300/api/order_detail/${p_id}`,
-        { seller_id }, // Send seller_id inside an object
+        { seller_id },
         { withCredentials: true }
       );
-      // Handle response if needed
-    } catch (err) {
-      console.log(err);
+      console.log("Order Response:", response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setShowPopup(true); // Show popup if user is not logged in
+      }
+      console.log("Error placing order:", error);
     }
-  }
-  
+  };
 
-  // Parse the image field if it's a stringified array
-  const images = typeof product.image === "string" ? JSON.parse(product.image) : product.image || [];
-  console.log("Images:", images);
+  // Ensure images are parsed properly
+  let images = [];
+  try {
+    images = typeof product.image === "string" ? JSON.parse(product.image) : product.image || [];
+  } catch (error) {
+    console.error("Error parsing images:", error);
+  }
+
 
   return (
     <>
       <Header />
       <div className="flex flex-row max-md:flex-col w-full gap-6">
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50">
+          <div className="relative bg-red-400 text-center text-white p-6 rounded-lg shadow-lg w-96">
+            {/* Close Button in Upper Right Corner */}
+            <button
+              className="absolute top-2 right-2 text-white text-xl font-bold bg-transparent hover:text-gray-200"
+              onClick={() => setShowPopup(false)}
+            >
+              &times;
+            </button>
+
+            <p className="mb-4">You are not logged in. Please log in to continue.</p>
+          </div>
+        </div>
+      )}
         <Productslide images={images} />
         <div className="p-6 w-full h-full">
           <h2 className="text-4xl font-semibold mb-8">{product.p_name || "Product Name"}</h2>
@@ -58,8 +102,12 @@ const Product = () => {
             <p className="mb-8">{product.used_duration || "Not specified"}</p>
           </div>
           <div className="border-b-2 border-solid border-slate-300 mb-4">
-            <p className="font-bold text-lg pt-3">Posted in</p>
-            <p className="mb-8">Mukundnagar, Nagar, Ahmadnagar, Maharashtra - 414001</p>
+            <p className="font-bold text-lg pt-3">Posted By</p>
+            <p className="mb-8">{seller.name || "Location not available"}</p>
+          </div>
+          <div className="border-b-2 border-solid border-slate-300 mb-4">
+            <p className="font-bold text-lg pt-3">Seller Location</p>
+            <p className="mb-8">{seller.address || "Location not available"}</p>
           </div>
           <p className="mb-14 text-2xl font-bold">
             <FontAwesomeIcon icon={faIndianRupeeSign} /> {product.price || "999"}
@@ -77,8 +125,13 @@ const Product = () => {
             >
               <ShoppingCartOutlined /> Add to cart
             </button>
-            <Link to={`/payment/${product.id}/${product.seller_id}`} className="" >
-              <button className="w-[20vw] h-11 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold cursor-pointer" onClick={() => handleBuyNow(product.id,product.seller_id)}>
+            <Link to={`/payment/${product.id}/${product.seller_id}`}>
+              <button 
+                className="w-[20vw] h-11 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold cursor-pointer"
+                onClick={(e) => {
+                  handleBuyNow(product.id, product.seller_id);
+                }}
+              >
                 Buy Now
               </button>
             </Link>

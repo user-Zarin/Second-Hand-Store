@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import UserInfo from "../components/UserInfo";
 import jsPDF from "jspdf";
 import Header from "../components/Header";
@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/User";
 
 const Payment = () => {
   const [displayMessage, setDisplayMessage] = useState(false);
@@ -15,8 +16,9 @@ const Payment = () => {
   const [product, setProduct] = useState({});
   const [seller, setSeller] = useState({});
   const [buyer, setBuyer] = useState({});
+ const { input } = useContext(UserContext);
 
-  const userId = 1; // Temporary user ID
+  const userId = input?.id || 2;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,15 +31,15 @@ const Payment = () => {
 
         // Fetch seller details
         const sellerResponse = await axios.get(
-          `http://localhost:3300/api/user/${sellerId}`
+          `http://localhost:3300/user/${sellerId}`
         );
-        setSeller(sellerResponse.data.userData[0]);
+        setSeller(sellerResponse.data[0]);
 
         // Fetch buyer details (assuming userId is available)
         const buyerResponse = await axios.get(
-          `http://localhost:3300/api/user/${userId}`
+          `http://localhost:3300/user/${userId}`
         );
-        setBuyer(buyerResponse.data.userData[0]);
+        setBuyer(buyerResponse.data[0]);
       } catch (error) {
         console.log("Error fetching data:", error);
       }

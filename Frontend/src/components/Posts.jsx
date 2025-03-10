@@ -57,7 +57,6 @@ const Posts = () => {
               console.error("Error parsing image JSON:", error);
               parsedImage = [];
             }
-
             return (
               <div
                 key={post.id}
@@ -75,6 +74,7 @@ const Posts = () => {
                 />
                 <div className="flex-1 cursor-pointer" onClick={() => navigate(`/product/${post.id}`)}>
                   <h2 className="text-lg font-bold text-gray-800">{post.p_name}</h2>
+                 
                   <p className="text-sm text-gray-600">{moment(post.posting_date).fromNow()}</p>
                 </div>
                 <div className="flex space-x-2">

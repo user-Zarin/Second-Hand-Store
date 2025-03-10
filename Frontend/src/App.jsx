@@ -16,6 +16,7 @@ import Product from "./pages/Product.jsx";
 import Admin from "./pages/Admin.jsx";
 import Users from "./pages/Users.jsx";
 import AddCategory from "./components/AddCategory.jsx";
+import { UserContext } from './context/User';
 
 import A_trial from "./components/A_trial.jsx"
 
@@ -29,10 +30,9 @@ const App = () => {
 
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-       
         <Route path="/signup/:id" element={<SignUP />} />
-        <Route path="/signup" element={<SignUP/>}/>
-        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUP/>} />
+        <Route path="/login" element={<Login />}  />
         <Route path="/login/:id" element={<Login />} />
         <Route path="/sell" element={<Sell />} />
         <Route path="/category/:id" element={<ProductPage />} />
@@ -44,13 +44,13 @@ const App = () => {
         
         {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashBoard />}>
-          <Route path="Admin" element={<Admin />} /> 
-          <Route path="progress" element={<UserProgress />} />
-          
-          <Route path="users" element={<Users />} />
+        <Route path="Admin" element={<Admin />} /> 
+        <Route path="progress" element={<UserProgress />} />
+        <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </BrowserRouter>
+   
   );
 };
 

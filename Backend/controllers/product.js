@@ -1,7 +1,7 @@
 import db from "../connect.js";
 
 export const getProduct = async (req, res) => {
-  // Temporary user ID
+
   const p_id = req.params.id;
 
   const q = `SELECT * FROM product WHERE id = (?)`;

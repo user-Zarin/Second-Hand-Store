@@ -18,7 +18,7 @@ const Sell = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const PostId = location.state?.PostId || 0;
-
+  const [showPopup, setShowPopup] = useState(false); 
   useEffect(() => {
     if (PostId) {
       handlePostChange();
@@ -97,6 +97,9 @@ const Sell = () => {
       }
       navigate("/home");
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setShowPopup(true); // Show popup if user is not logged in
+      }
       console.error("Error adding/updating product:", error);
       if (error.response) {
         console.error("Response Data:", error.response.data);
@@ -135,7 +138,23 @@ const Sell = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center font-sans bg-slate-100 py-3">
+     
+      <div className="flex flex-col items-center font-sans bg-slate-100 py-3"> 
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50">
+          <div className="relative bg-red-400 text-center text-white p-6 rounded-lg shadow-lg w-96">
+            {/* Close Button in Upper Right Corner */}
+            <button
+              className="absolute top-2 right-2 text-white text-xl font-bold bg-transparent hover:text-gray-200"
+              onClick={() => setShowPopup(false)}
+            >
+              &times;
+            </button>
+
+            <p className="mb-4">You are not logged in. Please log in to continue.</p>
+          </div>
+        </div>
+      )}
         <h1 className="text-2xl font-semibold mt-0 mb-6 pt-12 text-blue-900">
           POST YOUR PRODUCT
         </h1>
@@ -166,7 +185,7 @@ const Sell = () => {
                 {[
                   "Clothes",
                   "Cars",
-                  "Mobile",
+                  "Mobiles",
                   "Books",
                   "Pets",
                   "Appliances",
