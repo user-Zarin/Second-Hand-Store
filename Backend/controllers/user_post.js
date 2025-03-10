@@ -1,6 +1,7 @@
 import moment from "moment";
 import db from "../connect.js";
 import jwt from "jsonwebtoken";
+import { promisify } from "util";
 
 export const addPosts = async (req, res) => {
   const token = req.cookies.access_token;
@@ -159,18 +160,37 @@ export const updatePosts = async (req, res) => {
   });
 };
 
+
+
 export const deletePosts = async (req, res) => {
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not logged in !");
-  jwt.verify(token, "jwtSecretKey", (err, userInfo) => {
+  try {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json({ error: "Not logged in!" });
+
+    // Verify token
+    const userInfo = jwt.verify(token, "jwtSecretKey");
+    if (!userInfo) return res.status(403).json({ error: "Invalid token!" });
+
     const postId = req.params.id;
-    const q = `Delete from product where id = ?`;
-    db.query(q, [postId], (err, result) => {
-      if (err) {
-        console.error("Database Error:", err);
-        return res.status(500).json({ error: "Database error" });
-      }
-      res.status(200).json({ message: "Post deleted successfully!" });
-    });
-  });
+
+    // Promisify DB Queries
+    const query = promisify(db.query).bind(db);
+
+    // Delete related records first
+    await query(`DELETE FROM order_detail WHERE p_id = ?`, [postId]);
+
+    // Delete the main record
+    const result = await query(`DELETE FROM product WHERE id = ?`, [postId]);
+
+    // Check if a row was actually deleted
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Post not found!" });
+    }
+
+    res.status(200).json({ message: "Post deleted successfully!" });
+
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 };
