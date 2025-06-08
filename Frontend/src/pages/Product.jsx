@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
 import { ShoppingCartOutlined } from "@material-ui/icons";
 import axios from "axios";
+import {UserContext} from "../context/User.jsx";
 
 const Product = () => {
   const [product, setProduct] = useState({}); 
@@ -15,6 +16,7 @@ const Product = () => {
   const productId = id || location.state?.no; 
   const [seller, setSeller] = useState({});
   const [showPopup, setShowPopup] = useState(false); 
+  const {input} = useContext(UserContext)
 
   useEffect(() => {
     const getProduct = async () => {
@@ -77,7 +79,7 @@ const Product = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-row max-md:flex-col w-full gap-6">
+      <div className="flex flex-row max-md:flex-col w-[95vw] gap-6 md:m-8 rounded-lg shadow-2xl shadow-blue-500 mb-36">
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50">
           <div className="relative bg-red-400 text-center text-white p-6 rounded-lg shadow-lg w-96">
@@ -125,7 +127,7 @@ const Product = () => {
             >
               <ShoppingCartOutlined /> Add to cart
             </button>
-            <Link to={`/payment/${product.id}/${product.seller_id}`}>
+            <Link to={input ? `/payment/${product.id}/${product.seller_id}` : `/`}>
               <button 
                 className="w-[20vw] h-11 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold cursor-pointer"
                 onClick={(e) => {

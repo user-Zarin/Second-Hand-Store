@@ -108,14 +108,14 @@ const Payment = () => {
         )}
 
         {/* Main Content */}
-        <div className="w-5/6 rounded-2xl shadow-lg bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden">
-          <div className="flex flex-col lg:flex-row rounded-xl overflow-hidden justify-around md:justify-items-center bg-white">
+        <div className="w-full sm:w-5/6 rounded-2xl shadow-lg bg-gradient-to-r from-cyan-400 to-blue-500 md:p-[3px] overflow-hidden">
+          <div className="flex flex-col lg:flex-row rounded-xl overflow-hidden justify-around md:justify-items-center bg-white ">
             <div className="left lg:w-[40vw] p-6 w-full">
               <UserInfo />
             </div>
 
-            <div className="right md:w-[40vw] p-6 w-64">
-              <div className="flex flex-col items-center">
+            <div className="right md:w-[40vw] p-6 w-64 items-center">
+              <div className="flex flex-col sm:items-center items-start">
                 <h1 className="font-extrabold text-lg mb-2">
                   {product.p_name || "Loading..."}
                 </h1>

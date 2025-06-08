@@ -160,8 +160,6 @@ export const updatePosts = async (req, res) => {
   });
 };
 
-
-
 export const deletePosts = async (req, res) => {
   try {
     const token = req.cookies.access_token;
