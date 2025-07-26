@@ -52,3 +52,29 @@ export const addOrderDetails = async (req, res) => {
     }
   });
 };
+export const getOrderDetails = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const q = `
+      SELECT o.id, o.date , p.p_name, p.price,p.image,p.id as product_id
+      FROM order_detail o
+      JOIN product p ON o.p_id = p.id
+      WHERE o.buyer_id = ?
+      ORDER BY o.date DESC
+    `;
+
+    db.query(q, [userId], (err, rows) => {
+      if (err) {
+        console.error("Database Error:", err);
+        return res.status(500).json({ error: "Database operation failed" });
+      }
+      console.log(rows)
+      res.status(200).json({ orders: rows });
+    });
+  } catch (error) {
+    console.error("Error fetching order history:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+

@@ -79,7 +79,8 @@ function Profile() {
                   <FontAwesomeIcon icon={faCamera} />
                   <p>Upload Photo</p>
                 </button>
-              )}
+              )
+              }
               <input
                 type="file"
                 accept="image/*"
