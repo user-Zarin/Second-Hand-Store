@@ -20,7 +20,7 @@ function Profile() {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get('http://localhost:3300/auth/logout', {
+      const res = await axios.get('http://second-hand-store-production.up.railway.app/auth/logout', {
         withCredentials: true
       });
       if (res.data.Status) {
@@ -63,6 +63,7 @@ function Profile() {
             <div className=" flex justify-center ">
               {input?.profile_photo || previewUrl ? (
                 <>
+                
                 <div className="flex-col ">
                   <img 
                     src={previewUrl || input.profile} 
