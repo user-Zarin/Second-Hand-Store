@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3300/api/post/");
+        const response = await axios.get("http://second-hand-store-production.up.railway.app/api/post/");
         setPosts(response.data.posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -32,7 +32,7 @@ const Posts = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:3300/api/post/${postId}`);
+      await axios.delete(`http://second-hand-store-production.up.railway.app/api/post/${postId}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
       alert("Post deleted successfully!");
     } catch (error) {
@@ -65,7 +65,7 @@ const Posts = () => {
                 <img
                   src={
                     parsedImage && parsedImage.length > 0
-                      ? `http://localhost:3300/uploads/${parsedImage[0]}`
+                      ? `http://second-hand-store-production.up.railway.app/uploads/${parsedImage[0]}`
                       : "https://placehold.co/400"
                   }
                   alt="Post"

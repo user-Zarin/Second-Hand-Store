@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Productslide from "../components/Productslide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
-import { ShoppingCartOutlined } from "@material-ui/icons";
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import axios from "axios";
 import {UserContext} from "../context/User.jsx";
 
@@ -21,7 +21,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3300/api/product/${productId}`);
+        const response = await axios.get(`http://second-hand-store-production.up.railway.app/api/product/${productId}`);
         if (response.data.product.length > 0) {
           setProduct(response.data.product[0]);
           console.log("Fetched Product:", response.data.product[0]);
@@ -37,7 +37,7 @@ const Product = () => {
     if (product.seller_id) {
       const getSeller = async () => {
         try {
-          const response = await axios.get(`http://localhost:3300/user/${product.seller_id}`);
+          const response = await axios.get(`http://second-hand-store-production.up.railway.app/user/${product.seller_id}`);
   
           setSeller(response.data[0]);
         } catch (error) {
@@ -54,7 +54,7 @@ const Product = () => {
   const handleBuyNow = async (p_id, seller_id) => {
     try {
       const response = await axios.post(
-        `http://localhost:3300/api/order_detail/${p_id}`,
+        `http://second-hand-store-production.up.railway.app/api/order_detail/${p_id}`,
         { seller_id },
         { withCredentials: true }
       );

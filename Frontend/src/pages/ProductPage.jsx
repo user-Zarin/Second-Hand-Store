@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { MenuOutlined } from "@material-ui/icons";
+import { MenuOutlined } from "@mui/icons-material";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const ProductPage = () => {
     const getItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3300/api/product/getProducts/${category}`
+          `http://second-hand-store-production.up.railway.app/api/product/getProducts/${category}`
         );
         setItems(res.data);
         setFilteredItems(res.data); // Initially, show all products
@@ -72,7 +72,7 @@ const ProductPage = () => {
 
   const handleCart = async (p_id) => {
     const response = await axios.post(
-      `http://localhost:3300/api/cart/add/${p_id}`
+      `http://second-hand-store-production.up.railway.app/api/cart/add/${p_id}`
     );
     alert("Product has been added to cart successfully!");
   };
@@ -208,7 +208,7 @@ const ProductPage = () => {
                         <Link to={`/product/${item.id}`} className="md:w-full w-[50%] flex justify-center md:h-[60%] bg-white items-center max-w-full md:m-0 rounded-l-md">
                           <img
                             src={
-                              `http://localhost:3300/uploads/${parsedImage?.[0]}` ||
+                              `http://second-hand-store-production.up.railway.app/uploads/${parsedImage?.[0]}` ||
                               "https://images.unsplash.com/photo-1597484661973-ee6cd0b6482c?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             }
                             alt={`Product ${index + 1}`}

@@ -70,7 +70,7 @@ const Sell = () => {
     try {
       if (PostId === 0) {
         const response = await axios.post(
-          "http://localhost:3300/api/post",
+          "http://second-hand-store-production.up.railway.app/api/post",
           formData,
           { withCredentials: true }
         );
@@ -85,7 +85,7 @@ const Sell = () => {
         // }
     
         const response = await axios.put(
-          `http://localhost:3300/api/post/update/${PostId}/`,
+          `http://second-hand-store-production.up.railway.app/api/post/update/${PostId}/`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -113,7 +113,7 @@ const Sell = () => {
     if (!PostId) return;
   
     try {
-      const response = await axios.get(`http://localhost:3300/api/product/${PostId}`);
+      const response = await axios.get(`http://second-hand-store-production.up.railway.app/api/product/${PostId}`);
       const data = response.data.product[0];
   
       console.log("Fetched Post Data:", data); // Debugging
@@ -261,7 +261,7 @@ const Sell = () => {
                               ? image
                               : URL.createObjectURL(image)
                             : typeof image === "string"
-                            ? `http://localhost:3300/uploads/${image}`
+                            ? `http://second-hand-store-production.up.railway.app/uploads/${image}`
                             : URL.createObjectURL(image)
                         }
                         className="w-28 h-28 rounded-lg border"

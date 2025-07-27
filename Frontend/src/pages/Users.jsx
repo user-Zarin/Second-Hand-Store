@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Delete } from "@material-ui/icons";
+import { Delete } from "@mui/icons-material";
 
 const Users = () => {
     const [ranges, setRanges] = useState({

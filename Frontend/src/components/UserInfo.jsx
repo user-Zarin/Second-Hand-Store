@@ -1,6 +1,6 @@
 import { React, useContext, useState } from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import DoneIcon from "@material-ui/icons/Done";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
 import { UserContext } from "../context/User";
 import axios from 'axios'
 const UserInfo = () => {

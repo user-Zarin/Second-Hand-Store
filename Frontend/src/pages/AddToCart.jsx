@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Delete } from "@material-ui/icons";
+import { Delete } from "@mui/icons-material";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { UserContext } from "../context/User";
@@ -62,7 +62,7 @@ const AddToCart = () => {
               className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
               <div className="flex items-start gap-6">
-                <img className="w-16 sm:w-20" src={`http://localhost:3300/uploads/${parsedImage?.[0]}`} alt="Product" />
+                <img className="w-16 sm:w-20" src={`http://second-hand-store-production.up.railway.app/uploads/${parsedImage?.[0]}`} alt="Product" />
                 <div>
                   <p className="text-xs sm:text-lg font-medium">{item.p_name}</p>
                   <div className="flex items-center gap-5 mt-2">

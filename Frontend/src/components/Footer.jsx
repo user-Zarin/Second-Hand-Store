@@ -5,7 +5,7 @@ import {
   LocationOnOutlined,
   Pinterest,
   Twitter,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import React from "react";
 import logo from "../assets/logo.png";
 const Footer = () => {

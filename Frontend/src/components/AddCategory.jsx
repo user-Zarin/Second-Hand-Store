@@ -35,7 +35,7 @@ const AddCategory = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3300/api/category/",
+        "http://second-hand-store-production.up.railway.app/api/category/",
         formData,
         {
           headers: {

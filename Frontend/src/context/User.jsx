@@ -11,7 +11,7 @@ export const UserContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const res = await axios.post("http://localhost:3300/auth/login", inputs, {
+      const res = await axios.post("http://second-hand-store-production.up.railway.app/auth/login", inputs, {
         withCredentials: true,
       });
       console.log("Login Response:", res.data);
@@ -33,7 +33,7 @@ export const UserContextProvider = ({ children }) => {
   
   const updateProfile = async (userId, updatedData) => {
     
-    const res = await axios.put(`http://localhost:3300/user/update/${userId}`, updatedData, {
+    const res = await axios.put(`http://second-hand-store-production.up.railway.app/user/update/${userId}`, updatedData, {
       
       withCredentials: true,
     });
@@ -49,7 +49,7 @@ export const UserContextProvider = ({ children }) => {
       const formData = new FormData();
       formData.append("profile_photo", file);
 
-      const res = await axios.post(`http://localhost:3300/user/upload/${userId}`, formData, {
+      const res = await axios.post(`http://second-hand-store-production.up.railway.app/user/upload/${userId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

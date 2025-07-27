@@ -8,7 +8,7 @@ import {
   ShoppingCartOutlined,
   AccountCircle,
   MenuOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {

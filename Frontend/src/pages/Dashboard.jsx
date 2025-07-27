@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/logo.png";
-import TrendingUpIcon from "@material-ui/icons/TrendingUp";
-import GroupIcon from "@material-ui/icons/Group";
-import AddBoxIcon from "@material-ui/icons/AddBox";
-import { PhotoAlbum } from "@material-ui/icons";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import GroupIcon from "@mui/icons-material/Group";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { PhotoAlbum } from "@mui/icons-material";
 const DashBoard = () => {
   return (
     <div className="min-h-screen">
