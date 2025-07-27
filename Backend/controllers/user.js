@@ -1,9 +1,11 @@
 
-import { db } from "../connect.js";
+import db  from "../connect.js";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import path from "path";
 import fs from "fs"
+import dotenv from "dotenv"
+dotenv.config()
 
 export const getUser = (req, res) => {
   const userId = req.params.id;
@@ -24,7 +26,7 @@ export const updateUser = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not authenticated!");
   
-  jwt.verify(token, "jwtSecretKey", (err, userInfo) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, userInfo) => {
    
     
     if (err) return res.status(403).json("Token is not valid!");
@@ -55,21 +57,22 @@ export const uploadPhoto = (req, res) => {
     const newFileUrl = `http://localhost:3300/uploads/${req.file.filename}`;
     const userId = req.params.id;
 
-    
-    const getOldPhotoQuery = "SELECT profile_photo FROM user_info WHERE id = ?";
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const getOldPhotoQuery = "SELECT profile FROM user_info WHERE id = ?";
     db.query(getOldPhotoQuery, [userId], (err, results) => {
         if (err) {
             console.error("Database error while fetching old photo:", err);
             return res.status(500).json({ message: "Failed to retrieve old profile photo." });
         }
 
-        const oldPhotoUrl = results[0]?.profile_photo;
+        const oldPhotoUrl = results[0]?.profile;
         if (oldPhotoUrl) {
-          
             const oldFileName = path.basename(oldPhotoUrl);
-            const oldFilePath = path.join("uploads", oldFileName);
+            const oldFilePath = path.join(__dirname, "..", "uploads", oldFileName);
 
-           
             if (fs.existsSync(oldFilePath)) {
                 fs.unlink(oldFilePath, (unlinkErr) => {
                     if (unlinkErr) {
@@ -79,16 +82,16 @@ export const uploadPhoto = (req, res) => {
             }
         }
 
-        const updatePhotoQuery = "UPDATE user_info SET profile_photo = ? WHERE id = ?";
-        db.query(updatePhotoQuery, [newFileUrl, userId], (updateErr, result) => {
+        const updatePhotoQuery = "UPDATE user_info SET profile = ? WHERE id = ?";
+        db.query(updatePhotoQuery, [newFileUrl, userId], (updateErr) => {
             if (updateErr) {
                 console.error("Database error while updating photo:", updateErr);
                 return res.status(500).json({ message: "Failed to update profile photo." });
             }
 
-            res.status(200).json({ 
-                message: "Profile photo updated successfully!", 
-                profile_photo: newFileUrl 
+            res.status(200).json({
+                message: "Profile photo updated successfully!",
+                profile_photo: newFileUrl
             });
         });
     });

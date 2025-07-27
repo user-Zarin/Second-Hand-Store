@@ -2,11 +2,12 @@ import moment from "moment";
 import db from "../connect.js";
 import jwt from "jsonwebtoken";
 import { promisify } from "util";
-
+import dotenv from "dotenv"
+dotenv.config()
 export const addPosts = async (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not logged in !");
-  jwt.verify(token, "jwtSecretKey", (err, userInfo) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, userInfo) => {
     const { p_name, p_desc, used_duration, category, price } = req.body;
 
     if (!p_name || !p_desc || !used_duration || !category || !price) {
@@ -70,7 +71,7 @@ export const getPosts = async (req, res) => {
   // Temporary user ID
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not logged in !");
-  jwt.verify(token, "jwtSecretKey", (err, userInfo) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, userInfo) => {
     const userId = userInfo.id;
 
     const q = `SELECT id,p_name, image, posting_date FROM product WHERE seller_id = (?)`;
@@ -88,7 +89,7 @@ export const getPosts = async (req, res) => {
 export const updatePosts = async (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not logged in !");
-  jwt.verify(token, "jwtSecretKey", (err, userInfo) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, userInfo) => {
     const postId = req.params.id;
     console.log("Post ID received for update:", postId);
 
@@ -166,7 +167,7 @@ export const deletePosts = async (req, res) => {
     if (!token) return res.status(401).json({ error: "Not logged in!" });
 
     // Verify token
-    const userInfo = jwt.verify(token, "jwtSecretKey");
+    const userInfo = jwt.verify(token, process.env.SECRET_KEY);
     if (!userInfo) return res.status(403).json({ error: "Invalid token!" });
 
     const postId = req.params.id;

@@ -1,15 +1,15 @@
 import db from '../connect.js'
 // addCategory functione
 export const addCategory = (req, res) => {
-  const { id, cat_name } = req.body;
+  const {cat_name } = req.body;
   const cat_icon = req.file ? req.file.filename : null;
 
-  if (!id || !cat_name || !cat_icon) {
-    return res.status(400).json({ error: 'Please provide all required fields: id, cat_name, and icon.' });
+  if ( !cat_name || !cat_icon) {
+    return res.status(400).json({ error: 'Please provide all required fields: cat_name, and icon.' });
   }
 
-  const sql = `INSERT INTO category (id, cat_name, cat_icon) VALUES (?, ?, ?)`;
-  db.query(sql, [id, cat_name, cat_icon], (err, result) => {
+  const sql = `INSERT INTO category (cat_name, cat_icon) VALUES (?, ?)`;
+  db.query(sql, [cat_name, cat_icon], (err, result) => {
     if (err) {
       console.error('Error inserting data into database:', err);
       return res.status(500).json({ error: 'Database insertion error' });

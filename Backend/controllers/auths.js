@@ -1,7 +1,9 @@
-import { db } from "../connect.js";
+import  db  from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+dotenv.config();
 const saltRounds = 10;
 export const login = (req, res) => {
   const sql = `SELECT * FROM user_info WHERE email=?`;
@@ -23,8 +25,8 @@ export const login = (req, res) => {
         }
 
         const email = data[0].email;
-        const token = jwt.sign({id: data[0].id }, "jwtSecretKey", { expiresIn: "1h" });
-        res.cookie("access_token", token, {
+        const token = jwt.sign({id: data[0].id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+        res.cookie(process.env.ACCESS_TOKEN, token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production", // Use secure cookies in production
           sameSite: "strict",
@@ -81,6 +83,6 @@ export const rsignup = (req, res) => {
 
 
 export const logout = (req, res) => {
-  res.clearCookie("access_token");
+  res.clearCookie(process.env.ACCESS_TOKEN);
   return res.json({Status:true})
 };

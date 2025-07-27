@@ -65,7 +65,7 @@ function Profile() {
                 <>
                 <div className="flex-col ">
                   <img 
-                    src={previewUrl || input.profile_photo} 
+                    src={previewUrl || input.profile} 
                     alt="Profile" 
                     style={{ width: "100px", height: "100px", borderRadius: "50%", marginBottom:"5px", marginLeft:"6px" }} 
                   />

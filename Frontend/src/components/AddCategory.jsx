@@ -30,7 +30,6 @@ const AddCategory = ({ onClose }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("id", catId);
     formData.append("cat_name", catName);
     formData.append("cat_icon", file);
 
@@ -68,13 +67,6 @@ const AddCategory = ({ onClose }) => {
           <FontAwesomeIcon icon={faXmark} />
         </button>
         <div className="mb-4">
-          <label className="mb-2">Category Id:</label>
-          <input
-            type="text"
-            value={catId}
-            onChange={(e) => setCatId(e.target.value)}
-            className="bg-[#eaecee] rounded-lg h-14 w-[90%] mb-7"
-          />
           <label className="mb-2">Category name:</label>
           <input
             type="text"

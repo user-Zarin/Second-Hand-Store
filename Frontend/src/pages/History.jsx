@@ -41,7 +41,7 @@ const History = () => {
       <Header />
       
       <div className='min-h-screen bg-gradient-to-r from-cyan-400 to-blue-600 w-full h-[100vh] m-0 flex flex-col'>
-      <div className=" bg-white flex flex-col items-center mx-5 rounded-2xl ">
+      <div className=" bg-white flex flex-col items-center mx-5 rounded-2xl m-4">
         <div className=" w-[90%] text-center flex justify-center border-b border-blue-900">
           <p className="text-blue-900 font-bold text-2xl p-4 containerSize">Order History</p>
         </div>
@@ -102,7 +102,8 @@ const History = () => {
             </table>
           </div>
         </div>
-      </div></div>
+      </div>
+      </div>
       <Footer />
     </>
   );
