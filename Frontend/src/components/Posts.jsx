@@ -14,7 +14,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post/");
+        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post");
         setPosts(response.data.posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
