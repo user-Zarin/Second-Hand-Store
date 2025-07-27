@@ -14,7 +14,7 @@ const SignUp = () => {
   const handleSub = async (data) => {
    
     try {
-      const res=await axios.post("http://second-hand-store-production.up.railway.app/auth/signup", data,{
+      const res=await axios.post("https://second-hand-store-production.up.railway.app/auth/signup", data,{
         withCredentials : true
       })
      .then(res=>{

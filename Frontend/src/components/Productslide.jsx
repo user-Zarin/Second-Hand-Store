@@ -23,7 +23,7 @@ const Productslide = ({images}) => {
       {images.map((image, index) => (
         <img
           key={index}
-          src={`http://second-hand-store-production.up.railway.app/uploads/${image}`}
+          src={`https://second-hand-store-production.up.railway.app/uploads/${image}`}
           alt={`Slide ${index}`}
           className={`w-full bg-red-600 h-full object-cover transition-opacity items-center duration-500 ${index === currentIndex ? 'opacity-100 shadow-lg' : 'opacity-0'}`}
           style={{ position: index === currentIndex ? 'absolute' : 'static', top: 0, left: 0, width: '100%', height: '100%',backgroundSize:'100%' }}

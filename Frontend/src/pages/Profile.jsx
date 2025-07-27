@@ -20,7 +20,7 @@ function Profile() {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get('http://second-hand-store-production.up.railway.app/auth/logout', {
+      const res = await axios.get('https://second-hand-store-production.up.railway.app/auth/logout', {
         withCredentials: true
       });
       if (res.data.Status) {
