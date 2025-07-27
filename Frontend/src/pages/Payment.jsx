@@ -25,19 +25,19 @@ const Payment = () => {
       try {
         // Fetch product details
         const productResponse = await axios.get(
-          `https://second-hand-store-production.up.railway.app/api/product/${productId}`
+          `https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`
         );
         setProduct(productResponse.data.product[0]);
 
         // Fetch seller details
         const sellerResponse = await axios.get(
-          `https://second-hand-store-production.up.railway.app/user/${sellerId}`
+          `https://second-hand-store-production-064f.up.railway.app/user/${sellerId}`
         );
         setSeller(sellerResponse.data[0]);
 
         // Fetch buyer details (assuming userId is available)
         const buyerResponse = await axios.get(
-          `https://second-hand-store-production.up.railway.app/user/${userId}`
+          `https://second-hand-store-production-064f.up.railway.app/user/${userId}`
         );
         setBuyer(buyerResponse.data[0]);
       } catch (error) {
@@ -121,7 +121,7 @@ const Payment = () => {
                 </h1>
                 {parsedImage.length > 0 && (
                   <img
-                    src={`https://second-hand-store-production.up.railway.app/uploads/${parsedImage[0]}`}
+                    src={`https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage[0]}`}
                     alt={product.p_name || "Product Image"}
                     className="w-56 h-60 rounded-md mb-4"
                   />

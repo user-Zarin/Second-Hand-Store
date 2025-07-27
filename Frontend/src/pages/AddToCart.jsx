@@ -13,6 +13,7 @@ const AddToCart = () => {
       try {
         const userId = input.id; // replace with dynamic ID
         
+        
         const response = await axios.get(`https://second-hand-store-production.up.railway.app/api/cart/get/${userId}`);
         setCartItems(response.data.cart);
       } catch (error) {

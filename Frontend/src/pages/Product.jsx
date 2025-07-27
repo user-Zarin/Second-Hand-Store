@@ -21,7 +21,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await axios.get(`https://second-hand-store-production.up.railway.app/api/product/${productId}`);
+        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`);
         if (response.data.product.length > 0) {
           setProduct(response.data.product[0]);
           console.log("Fetched Product:", response.data.product[0]);
@@ -37,7 +37,7 @@ const Product = () => {
     if (product.seller_id) {
       const getSeller = async () => {
         try {
-          const response = await axios.get(`https://second-hand-store-production.up.railway.app/user/${product.seller_id}`);
+          const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/user/${product.seller_id}`);
   
           setSeller(response.data[0]);
         } catch (error) {
@@ -54,7 +54,7 @@ const Product = () => {
   const handleBuyNow = async (p_id, seller_id) => {
     try {
       const response = await axios.post(
-        `https://second-hand-store-production.up.railway.app/api/order_detail/${p_id}`,
+        `https://second-hand-store-production-064f.up.railway.app/api/order_detail/${p_id}`,
         { seller_id },
         { withCredentials: true }
       );

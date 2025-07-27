@@ -14,7 +14,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("https://second-hand-store-production.up.railway.app/api/post/");
+        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post/");
         setPosts(response.data.posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -32,7 +32,7 @@ const Posts = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`https://second-hand-store-production.up.railway.app/api/post/${postId}`);
+      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/post/${postId}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
       alert("Post deleted successfully!");
     } catch (error) {
@@ -65,7 +65,7 @@ const Posts = () => {
                 <img
                   src={
                     parsedImage && parsedImage.length > 0
-                      ? `https://second-hand-store-production.up.railway.app/uploads/${parsedImage[0]}`
+                      ? `https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage[0]}`
                       : "https://placehold.co/400"
                   }
                   alt="Post"
