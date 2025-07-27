@@ -11,7 +11,7 @@ export const UserContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const res = await axios.post("https://second-hand-store-production.up.railway.app/auth/login", inputs, {
+      const res = await axios.post("https://second-hand-store-production-064f.up.railway.app/auth/login", inputs, {
         withCredentials: true,
       });
       console.log("Login Response:", res.data);
