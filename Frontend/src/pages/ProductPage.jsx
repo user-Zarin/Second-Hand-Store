@@ -20,7 +20,9 @@ const ProductPage = () => {
     const getItems = async () => {
       try {
         const res = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/api/product/getProducts/${category}`
+          `https://second-hand-store-production-064f.up.railway.app/api/product/getProducts/${category}`,{
+            withCredentials:true,
+          }
         );
         setItems(res.data);
         setFilteredItems(res.data); // Initially, show all products
@@ -72,7 +74,9 @@ const ProductPage = () => {
 
   const handleCart = async (p_id) => {
     const response = await axios.post(
-      `https://second-hand-store-production-064f.up.railway.app/api/cart/add/${p_id}`
+      `https://second-hand-store-production-064f.up.railway.app/api/cart/add/${p_id}`,{},{
+        withCredentials:true,
+      }
     );
     alert("Product has been added to cart successfully!");
   };

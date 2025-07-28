@@ -14,7 +14,9 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post");
+        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post",{
+          withCredentials:true,
+        });
         setPosts(response.data.posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -32,7 +34,9 @@ const Posts = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/post/${postId}`);
+      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/post/${postId}`,{
+        withCredentials:true,
+      });
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
       alert("Post deleted successfully!");
     } catch (error) {

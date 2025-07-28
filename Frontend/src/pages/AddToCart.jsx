@@ -14,7 +14,9 @@ const AddToCart = () => {
         const userId = input.id; // replace with dynamic ID
         
         
-        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/cart/get/${userId}`);
+        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/cart/get/${userId}`,{
+          withCredentials:true,
+        });
         setCartItems(response.data.cart);
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -26,7 +28,9 @@ const AddToCart = () => {
 
   const handleDelete = async (cartItemId) => {
     try {
-      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/cart/delete/${cartItemId}`);
+      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/cart/delete/${cartItemId}`,{
+        withCredentials:true,
+      });
       setCartItems(prev => prev.filter(item => item.cart_id !== cartItemId)); // update UI
     } catch (error) {
       console.error("Error deleting item:", error);

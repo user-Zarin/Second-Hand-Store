@@ -17,7 +17,9 @@ const History = () => {
     const fetchOrders = async () => {
       console.log(userId)
       try {// Replace with dynamic user ID if needed
-        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/order_detail/orders/${userId}`);
+        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/order_detail/orders/${userId}`,{
+          withCredentials:true,
+        });
         const ordersWithStatus = response.data.orders.map(order => ({
           id: order.id,
           p_id:order.product_id,

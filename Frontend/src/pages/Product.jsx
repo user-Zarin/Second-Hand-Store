@@ -21,7 +21,9 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`);
+        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`,{
+          withCredentials:true,
+        });
         if (response.data.product.length > 0) {
           setProduct(response.data.product[0]);
           console.log("Fetched Product:", response.data.product[0]);
@@ -37,7 +39,9 @@ const Product = () => {
     if (product.seller_id) {
       const getSeller = async () => {
         try {
-          const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/user/${product.seller_id}`);
+          const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/user/${product.seller_id}`,{
+            withCredentials:true,
+          });
   
           setSeller(response.data[0]);
         } catch (error) {

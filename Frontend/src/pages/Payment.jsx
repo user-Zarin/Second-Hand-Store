@@ -25,19 +25,26 @@ const Payment = () => {
       try {
         // Fetch product details
         const productResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`
+          `https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`,{
+            withCredentials:true,
+          }
         );
         setProduct(productResponse.data.product[0]);
 
         // Fetch seller details
         const sellerResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/user/${sellerId}`
+          `https://second-hand-store-production-064f.up.railway.app/user/${sellerId}`,
+          {
+            withCredentials:true,
+          }
         );
         setSeller(sellerResponse.data[0]);
 
         // Fetch buyer details (assuming userId is available)
         const buyerResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/user/${userId}`
+          `https://second-hand-store-production-064f.up.railway.app/user/${userId}`,{
+            withCredentials:true,
+          }
         );
         setBuyer(buyerResponse.data[0]);
       } catch (error) {
