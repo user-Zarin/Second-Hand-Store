@@ -14,7 +14,7 @@ const AddToCart = () => {
         const userId = input.id; // replace with dynamic ID
         
         
-        const response = await axios.get(`https://second-hand-store-production.up.railway.app/api/cart/get/${userId}`);
+        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/cart/get/${userId}`);
         setCartItems(response.data.cart);
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -26,7 +26,7 @@ const AddToCart = () => {
 
   const handleDelete = async (cartItemId) => {
     try {
-      await axios.delete(`https://second-hand-store-production.up.railway.app/api/cart/delete/${cartItemId}`);
+      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/cart/delete/${cartItemId}`);
       setCartItems(prev => prev.filter(item => item.cart_id !== cartItemId)); // update UI
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -64,7 +64,7 @@ const AddToCart = () => {
               className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
               <div className="flex items-start gap-6">
-                <img className="w-16 sm:w-20" src={`https://second-hand-store-production.up.railway.app/uploads/${parsedImage?.[0]}`} alt="Product" />
+                <img className="w-16 sm:w-20" src={`https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage?.[0]}`} alt="Product" />
                 <div>
                   <p className="text-xs sm:text-lg font-medium">{item.p_name}</p>
                   <div className="flex items-center gap-5 mt-2">
