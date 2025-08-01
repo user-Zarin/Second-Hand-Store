@@ -35,11 +35,12 @@ const AddCategory = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        "https://second-hand-store-production-064f.up.railway.app/api/category/",
+        "https://second-hand-store-production-064f.up.railway.app/api/category",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            
           },
           withCredentials:true,
         }

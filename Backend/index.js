@@ -15,11 +15,24 @@ const port = 3300;
 const app = express()
 app.use(express.json());
 app.use(cookieParser())
+const allowedOrigins = [
+  "https://second-hand-store-9mgh.vercel.app",
+  "http://localhost:5173"
+];
+
 app.use(cors({
-    origin: "https://second-hand-store-9mgh.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-}))
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 

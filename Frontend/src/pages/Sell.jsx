@@ -261,7 +261,7 @@ const Sell = () => {
                               ? image
                               : URL.createObjectURL(image)
                             : typeof image === "string"
-                            ? `https://second-hand-store-production-064f.up.railway.app/uploads/${image}`
+                            ? `https://second-hand-store-production-064fup.railway.app/uploads/${image}`
                             : URL.createObjectURL(image)
                         }
                         className="w-28 h-28 rounded-lg border"
