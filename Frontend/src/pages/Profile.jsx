@@ -8,7 +8,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-
+import { API_BASE_URL } from "../../config.js";
 function Profile() {
   const [err, setErr] = useState(null);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Profile() {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get('https://second-hand-store-production-064f.up.railway.app/auth/logout', {
+      const res = await axios.get(`${API_BASE_URL}/auth/logout`, {
         withCredentials: true
       });
       if (res.data.Status) {

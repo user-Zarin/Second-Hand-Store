@@ -8,7 +8,7 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/User";
-
+import { API_BASE_URL } from "../../config";
 const Payment = () => {
   const [displayMessage, setDisplayMessage] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("Cash on delivery");
@@ -25,7 +25,7 @@ const Payment = () => {
       try {
         // Fetch product details
         const productResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`,{
+          `${API_BASE_URL}/api/product/${productId}`,{
             withCredentials:true,
           }
         );
@@ -33,7 +33,7 @@ const Payment = () => {
 
         // Fetch seller details
         const sellerResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/user/${sellerId}`,
+          `${API_BASE_URL}/user/${sellerId}`,
           {
             withCredentials:true,
           }
@@ -42,7 +42,7 @@ const Payment = () => {
 
         // Fetch buyer details (assuming userId is available)
         const buyerResponse = await axios.get(
-          `https://second-hand-store-production-064f.up.railway.app/user/${userId}`,{
+          `${API_BASE_URL}/user/${userId}`,{
             withCredentials:true,
           }
         );
@@ -128,7 +128,7 @@ const Payment = () => {
                 </h1>
                 {parsedImage.length > 0 && (
                   <img
-                    src={`https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage[0]}`}
+                    src={`${API_BASE_URL}/uploads/${parsedImage[0]}`}
                     alt={product.p_name || "Product Image"}
                     className="w-56 h-60 rounded-md mb-4"
                   />

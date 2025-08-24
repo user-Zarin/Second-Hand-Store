@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import { API_BASE_URL } from "../../config";
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
@@ -11,7 +11,7 @@ export const UserContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const res = await axios.post("https://second-hand-store-production-064f.up.railway.app/auth/login", inputs, {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, inputs, {
         withCredentials: true,
       });
       console.log("Login Response:", res.data);
@@ -33,7 +33,7 @@ export const UserContextProvider = ({ children }) => {
   
   const updateProfile = async (userId, updatedData) => {
     
-    const res = await axios.put(`https://second-hand-store-production-064f.up.railway.app/user/update/${userId}`, updatedData, {
+    const res = await axios.put(`${API_BASE_URL}/user/update/${userId}`, updatedData, {
       
       withCredentials: true,
     });
@@ -49,7 +49,7 @@ export const UserContextProvider = ({ children }) => {
       const formData = new FormData();
       formData.append("profile_photo", file);
 
-      const res = await axios.post(`https://second-hand-store-production-064f.up.railway.app/user/upload/${userId}`, formData, {
+      const res = await axios.post(`${API_BASE_URL}/user/upload/${userId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faCamera,faCirclePlus} from '@fortawesome/free-solid-svg-icons';
+import { API_BASE_URL } from '../../config';
 const AddCategory = ({ onClose }) => {
   const popupRef = useRef();
 
@@ -35,7 +36,7 @@ const AddCategory = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        "https://second-hand-store-production-064f.up.railway.app/api/category",
+        `${API_BASE_URL}/api/category`,
         formData,
         {
           headers: {

@@ -5,7 +5,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import axios from "axios";
-
+import { API_BASE_URL } from "../../config.js";
 const Sell = () => {
   const popupRef = useRef(null);
   const [title, setTitle] = useState("");
@@ -19,6 +19,7 @@ const Sell = () => {
   const location = useLocation();
   const PostId = location.state?.PostId || 0;
   const [showPopup, setShowPopup] = useState(false); 
+
   useEffect(() => {
     if (PostId) {
       handlePostChange();
@@ -70,7 +71,7 @@ const Sell = () => {
     try {
       if (PostId === 0) {
         const response = await axios.post(
-          "https://second-hand-store-production-064f.up.railway.app/api/post",
+          `${API_BASE_URL}/api/post`,
           formData,
           { withCredentials: true }
         );
@@ -85,7 +86,7 @@ const Sell = () => {
         // }
     
         const response = await axios.put(
-          `https://second-hand-store-production-064f.up.railway.app/api/post/update/${PostId}/`,
+          `${API_BASE_URL}/api/post/update/${PostId}/`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -113,7 +114,7 @@ const Sell = () => {
     if (!PostId) return;
   
     try {
-      const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/product/${PostId}`);
+      const response = await axios.get(`${API_BASE_URL}/api/product/${PostId}`);
       const data = response.data.product[0];
   
       console.log("Fetched Post Data:", data); // Debugging

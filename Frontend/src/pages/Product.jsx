@@ -8,7 +8,7 @@ import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
 import { ShoppingCartOutlined } from "@mui/icons-material";
 import axios from "axios";
 import {UserContext} from "../context/User.jsx";
-
+import { API_BASE_URL } from "../../config.js";
 const Product = () => {
   const [product, setProduct] = useState({}); 
   const { id } = useParams();
@@ -21,7 +21,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/product/${productId}`,{
+        const response = await axios.get(`${API_BASE_URL}/api/product/${productId}`,{
           withCredentials:true,
         });
         if (response.data.product.length > 0) {
@@ -39,7 +39,7 @@ const Product = () => {
     if (product.seller_id) {
       const getSeller = async () => {
         try {
-          const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/user/${product.seller_id}`,{
+          const response = await axios.get(`${API_BASE_URL}/user/${product.seller_id}`,{
             withCredentials:true,
           });
   
@@ -58,7 +58,7 @@ const Product = () => {
   const handleBuyNow = async (p_id, seller_id) => {
     try {
       const response = await axios.post(
-        `https://second-hand-store-production-064f.up.railway.app/api/order_detail/${p_id}`,
+        `${API_BASE_URL}/api/order_detail/${p_id}`,
         { seller_id },
         { withCredentials: true }
       );

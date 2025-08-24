@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { UserContext } from '../context/User';
 import { useNavigate} from 'react-router-dom';
+import { API_BASE_URL } from '../../config';
 const History = () => {
   const [historyData, setHistoryData] = useState([]);
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ const History = () => {
     const fetchOrders = async () => {
       console.log(userId)
       try {// Replace with dynamic user ID if needed
-        const response = await axios.get(`https://second-hand-store-production-064f.up.railway.app/api/order_detail/orders/${userId}`,{
+        const response = await axios.get(`${API_BASE_URL}/api/order_detail/orders/${userId}`,{
           withCredentials:true,
         });
         const ordersWithStatus = response.data.orders.map(order => ({
@@ -80,7 +81,7 @@ const History = () => {
                     <td className="py-3 px-5 flex text-black font-medium justify-left max-sm:justify-evenly items-center cursor-pointer gap-4" 
                     onClick={()=>{navigate(`/product/${item.p_id}`)}}>
                       
-                      <img src={`https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage?.[0]}` || "https://images.unsplash.com/photo-1728443783579-494fdbfd8512?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"} alt="product" className="w-10 mr-2" />
+                      <img src={`${API_BASE_URL}/uploads/${parsedImage?.[0]}` || "https://images.unsplash.com/photo-1728443783579-494fdbfd8512?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"} alt="product" className="w-10 mr-2" />
                       {item.product}
                     </td>
                     <td className="py-3 px-5 max-sm:hidden">Rs.{item.amount}</td>

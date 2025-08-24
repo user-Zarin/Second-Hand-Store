@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-
+import { API_BASE_URL } from "../../config";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("https://second-hand-store-production-064f.up.railway.app/api/post",{
+        const response = await axios.get(`${API_BASE_URL}/api/post`,{
           withCredentials:true,
         });
         setPosts(response.data.posts);
@@ -34,7 +34,7 @@ const Posts = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`https://second-hand-store-production-064f.up.railway.app/api/post/${postId}`,{
+      await axios.delete(`${API_BASE_URL}/api/post/${postId}`,{
         withCredentials:true,
       });
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
@@ -69,7 +69,7 @@ const Posts = () => {
                 <img
                   src={
                     parsedImage && parsedImage.length > 0
-                      ? `https://second-hand-store-production-064f.up.railway.app/uploads/${parsedImage[0]}`
+                      ? `${API_BASE_URL}/uploads/${parsedImage[0]}`
                       : "https://placehold.co/400"
                   }
                   alt="Post"

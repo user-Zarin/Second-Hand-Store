@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { API_BASE_URL } from '../../config';
 import { faIndianRupeeSign,faAngleLeft,faAngleRight } from '@fortawesome/free-solid-svg-icons';
 const Productslide = ({images}) => {
     const[currentIndex,setcurrentIndex]=useState(0);
@@ -23,7 +24,7 @@ const Productslide = ({images}) => {
       {images.map((image, index) => (
         <img
           key={index}
-          src={`https://second-hand-store-production-064f.up.railway.app/uploads/${image}`}
+          src={`${API_BASE_URL}/uploads/${image}`}
           alt={`Slide ${index}`}
           className={`w-full bg-red-600 h-full object-cover transition-opacity items-center duration-500 ${index === currentIndex ? 'opacity-100 shadow-lg' : 'opacity-0'}`}
           style={{ position: index === currentIndex ? 'absolute' : 'static', top: 0, left: 0, width: '100%', height: '100%',backgroundSize:'100%' }}

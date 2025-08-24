@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useParams, useNavigate, data } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
+import { API_BASE_URL } from '../../config';
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
   const { id } = useParams();
@@ -14,7 +14,7 @@ const SignUp = () => {
   const handleSub = async (data) => {
    
     try {
-      const res=await axios.post("https://second-hand-store-production-064f.up.railway.app/auth/signup", data,{
+      const res=await axios.post(`${API_BASE_URL}/auth/signup`, data,{
         withCredentials : true
       })
      .then(res=>{
